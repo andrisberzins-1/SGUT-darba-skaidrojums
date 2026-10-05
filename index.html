@@ -517,7 +517,7 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
       <div class="ctl"><label for="p-T0">Montāžas temperatūra <i>T</i><sub>0</sub></label><output id="p-T0-o" for="p-T0">5 °C</output>
         <input type="range" id="p-T0" min="-10" max="20" step="1" value="5"></div>
       <div class="ctl"><label for="p-T">Darba temperatūra <i>T</i></label><output id="p-T-o" for="p-T">75 °C</output>
-        <input type="range" id="p-T" min="50" max="95" step="1" value="75"></div>
+        <input type="range" id="p-T" min="25" max="95" step="0.5" value="75"></div>
       <div class="ctl"><label for="p-mu">Berzes koeficients <i>μ</i></label><output id="p-mu-o" for="p-mu">0,30</output>
         <input type="range" id="p-mu" min="0.1" max="0.4" step="0.05" value="0.3"></div>
       <p class="small muted" style="margin:0;align-self:end">Konstantes: <i>E</i> = 210 000 MPa, <i>α</i> = 12·10<sup>−6</sup> 1/K,
@@ -965,8 +965,9 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
     katra par <i>δ</i>/2. Cilpas kājas saliecas kā divas vadītas konsoles, un šķērsgabals starp tām tikai pārnes
     spēku — tas ir spiests.</p>
     <p>Tā kā katra kāja uzņem tikai pusi kustības, tā var būt √2 reizes īsāka nekā L līkuma kāja. Cilpas vieta
-    posmā spriegumu nemaina; tā maina tikai to, cik tālu jāslīd garākās puses balstiem. Abās pusēs cilpai liek
-    vadotnes, lai spiestā caurule nezaudētu noturību.</p>
+    posmā spriegumu nemaina; tā maina tikai to, cik tālu jāslīd garākās puses balstiem. Ar cilpu posms ir spiests,
+    tāpēc katrs posma balsts ir vadīts slīdbalsts (ar sānu vadotni): gar asi brīvs, sāniski tur.
+    Spiestai caurulei Eilera garums ir attālums starp vadotnēm — šeit balstu solis <i>s</i>.</p>
   </div>
   <div class="eq">
     <div><span class="g"><i>F</i><sub>U</sub> = <span class="f"><span>12 · <i>E</i> · <i>I</i> · (<i>δ</i>/2)</span><span><i>H</i>³</span></span> = <span class="f"><span>6 · <i>E</i> · <i>I</i> · <i>δ</i></span><span><i>H</i>³</span></span></span><span class="g"><i>σ</i><sub>U</sub> = <span class="f"><span>3 · <i>E</i> · <i>D</i> · (<i>δ</i>/2)</span><span><i>H</i>²</span></span></span></div>
@@ -1040,7 +1041,7 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
 
   <div class="notice"><h3>Ko pamanīt</h3><ul>
     <li>Starp sliktāko un labāko shēmu ir vairāk nekā 100 reižu.</li>
-    <li id="x10-note2">Ar cilpu atlikusī spiede posmā ir krietni zem <i>N</i><sub>cr</sub> pie izvēlētā soļa — pietiek ar parastām vadotnēm.</li>
+    <li id="x10-note2">Ar cilpu atlikusī spiede posmā ir krietni zem <i>N</i><sub>cr</sub> pie izvēlētā soļa, ja vadotne ir katrā balstā.</li>
     <li>Silfons ietaupa vietu, bet jau vienkāršotā novērtējumā tā spiediena spēks ir tuvu apskavas nestspējai; īstais ir lielāks.</li>
   </ul></div>
 </section>
@@ -1134,7 +1135,7 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
       <div class="ctl"><label for="sys-T0">Montāžas <i>T</i><sub>0</sub></label><output id="sys-T0-o" for="sys-T0">5 °C</output>
         <input type="range" id="sys-T0" min="-10" max="20" step="1" value="5"></div>
       <div class="ctl"><label for="sys-T">Darba <i>T</i></label><output id="sys-T-o" for="sys-T">75 °C</output>
-        <input type="range" id="sys-T" min="50" max="95" step="1" value="75"></div>
+        <input type="range" id="sys-T" min="25" max="95" step="0.5" value="75"></div>
       <div class="playrow">
         <button type="button" class="play" id="sys-play" aria-pressed="false" aria-label="Atskaņot sildīšanu un atdzišanu">
             <svg class="i-play" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3 L17 10 L5 17 Z"/></svg>
@@ -1454,7 +1455,8 @@ var KP1Phys = (function () {
     if (U) xs = xs.filter(function (x) { return x < gA - 0.4 * spacing || x > gB + 0.4 * spacing; });
     if (scheme === "mid") xs = xs.filter(function (x) { return Math.abs(x - L1 / 2) > 0.3 * spacing; });
     xs.forEach(function (x, i) {
-      var type = scheme === "both" ? "GD" : (i === xs.length - 1 && (scheme === "L" || scheme === "mid")) ? "GD" : "SL";
+      // with the loop the run is compressed: every run support is a guide (Euler length s)
+      var type = (scheme === "both" || U) ? "GD" : (i === xs.length - 1 && (scheme === "L" || scheme === "mid")) ? "GD" : "SL";
       add("run", x, 0, type);
     });
     if (scheme === "mid") add("run", L1 / 2, 0, "FP");
@@ -1540,6 +1542,14 @@ var KP1Phys = (function () {
       fps = [["A", A], ["B", Bu]];
     }
     list.forEach(function (sp, i) { sp.n = i + 1; sp.Rh = Math.sqrt(sp.Rx * sp.Rx + sp.Ry * sp.Ry); });
+    // Euler length of the compressed run: the longest straight gap between run
+    // supports (with the loop: between guides), not counting the loop itself
+    var runX = list.filter(function (sp) { return sp.part === "run"; })
+                   .map(function (sp) { return sp.x; }).sort(function (p, r) { return p - r; });
+    var guideGap = 0;
+    for (var g = 1; g < runX.length; g++) {
+      if (!(U && runX[g - 1] < xl && xl < runX[g])) guideGap = Math.max(guideGap, runX[g] - runX[g - 1]);
+    }
     var tot = { Rv: sum(function () { return true; }, "Rv"), Rx: sum(function () { return true; }, "Rx"),
                 Ry: sum(function () { return true; }, "Ry") };
     return {
@@ -1549,7 +1559,7 @@ var KP1Phys = (function () {
                                             F: Math.sqrt(f[1].Rx * f[1].Rx + f[1].Ry * f[1].Ry), n: f[1].n }; }),
       count: list.length, spacing: spacing, dT: dT, dir: dir, phase: phase,
       N: N, FL: FL, FLmid: FLm, FU: FU, deltaB: dB, H: H, Wc: Wc, xl: xl, xa: xa, xb: xb,
-      moveA: scheme === "mid" ? -dB / 2 : 0
+      moveA: scheme === "mid" ? -dB / 2 : 0, guideGap: guideGap
     };
   }
 
@@ -1679,7 +1689,8 @@ var KP1Phys = (function () {
     return supCache[scheme];
   }
   function Tat(t) { return SYS.T0 + t * (SYS.T - SYS.T0); }
-  function fmtTemp(t) { return fmt(Tat(t), 0) + NB + "°C · ΔT" + NB + fmt(t * (SYS.T - SYS.T0), 0) + NB + "K"; }
+  function fmtK(v) { return fmt(v, Math.abs(v - Math.round(v)) > 1e-6 ? 1 : 0); }   // 42,5 but 85
+  function fmtTemp(t) { return fmtK(Tat(t)) + NB + "°C · ΔT" + NB + fmtK(t * (SYS.T - SYS.T0)) + NB + "K"; }
   function heating() { return SYS.dir >= 0; }
   // The exaggeration actually drawn: the chosen one, but small enough that the
   // full movement δ_B stays within `limit` (in the drawing's own units × 1000).
@@ -3234,7 +3245,7 @@ var KP1Phys = (function () {
           (isFinite(scr) ? m2(scr) : "—") + "."
         : '<span class="st ok">taisna</span> <i>N</i> = ' + kN(N) + " vēl ir mazāks par <i>N</i><sub>cr</sub> = " + kN(Ncr) + ".";
       $("x4-note3").innerHTML = "Pie apskavu soļa <i>s</i><sub>0</sub> = " + fmt(SYS.s0, 1) + " m caurule zaudē noturību jau pie Δ<i>T</i> ≈ " + fmt(R.dTcr, 0) +
-        " K — bet darbā Δ<i>T</i> = " + fmt(R.dT, 0) + " K.";
+        " K — bet darbā Δ<i>T</i> = " + fmtK(R.dT) + " K.";
     }
     View($("f-buck"), update);
     heatControls("x4", fig);
@@ -4018,10 +4029,13 @@ var KP1Phys = (function () {
       $("x10-list").innerHTML = sent.map(function (s, i) {
         return '<li class="' + (its[i].F <= C.FRd ? "ok" : "bad") + '">' + s + "</li>";
       }).join("");
-      var FB = FUat(1) + R.Fmu / 2, Ncr = P.euler(R.EI, SYS.s * 1000);
+      var gap = SUP("U").guideGap;
+      var FB = FUat(1) + R.Fmu / 2, Ncr = P.euler(R.EI, gap * 1000), Nhalf = P.euler(R.EI, SYS.L1 * 500);
       $("x10-note2").innerHTML = "Ar cilpu lielākā spiede posmā ir <i>N</i><sub>max</sub> = <i>F</i><sub>B</sub> = " + kN(FB, 3) +
-        ", bet <i>N</i><sub>cr</sub> pie balstu soļa " + fmt(SYS.s, 2) + " m ir " + kN(Ncr) + " — " + sig(Ncr / FB, 2) +
-        " reizes vairāk. Pietiek ar parastām vadotnēm.";
+        ", bet <i>N</i><sub>cr</sub> pie lielākā attāluma starp vadotnēm (" + fmt(gap, 2) + " m) ir " + kN(Ncr) + " — " + sig(Ncr / FB, 2) +
+        " reizes vairāk, jo vadotne ir katrā balstā. Ja vadotnes būtu tikai pie cilpas, Eilera garums būtu ap <i>L</i><sub>1</sub>/2 = " +
+        fmt(SYS.L1 / 2, 1) + " m un <i>N</i><sub>cr</sub> = " + kN(Nhalf, 2) +
+        (Nhalf < FB ? " — mazāk par <i>N</i><sub>max</sub>: caurule zaudētu noturību." : " — tikai " + sig(Nhalf / FB, 2) + " reizes vairāk.");
     }
     View($("f-fpbar"), update);
     heatControls("x10", fig);
@@ -4061,12 +4075,12 @@ var KP1Phys = (function () {
           "Izliece aug ar <i>s</i><sup>4</sup>, spriegums ar <i>s</i><sup>2</sup>; pie šajā projektā pieņemtajām robežām 2,5 mm un 16 MPa izliece robežu sasniedz nedaudz agrāk."],
       a: 2,
       e: "Šīm caurulēm <i>s</i><sub>δ</sub> ir dažus procentus mazāks par <i>s</i><sub>σ</sub>. Robežas 2,5 mm un 16 MPa ir šajā projektā pieņemtas (no balstu tabulām). Lai caurule ar kritumu <i>i</i> iztukšotos un atgaisotos bez kabatām, svarīgs ir nosacījums 3,2·<i>δ</i>/<i>s</i> ≤ <i>i</i>." },
-    { q: "Ko dara vadotnes abās pusēs cilpai?",
+    { q: "Ko dara vadotnes posmā ar cilpu?",
       o: ["Tur cauruli sāniski un ļauj tai slīdēt gar asi, lai spiestā caurule nezaudētu noturību un spiestu taisni cilpā.",
           "Aptur kustību tāpat kā fiksētais punkts.",
           "Nes tikai svaru; sāniski tās ir brīvas."],
       a: 0,
-      e: "Ar cilpu posms ir spiests (cilpas spēks un berze). Vadotne ir slīdbalsts ar sānu atdurēm: gar asi brīvs, sāniski tur. Tā neļauj caurulei zaudēt noturību un cilpai saliekties nepareizā virzienā." },
+      e: "Ar cilpu posms ir spiests (cilpas spēks un berze). Vadotne ir slīdbalsts ar sānu atdurēm: gar asi brīvs, sāniski tur. Eilera garums ir attālums starp vadotnēm, tāpēc tās liek katrā balstā — tad caurule nezaudē noturību un cilpa nesaliecas nepareizā virzienā." },
     { q: "Kāpēc aksiālais silfona kompensators noslogo fiksēto punktu vairāk nekā U cilpa?",
       o: ["Silfons ir smagāks par cilpu.",
           "Iekšējais spiediens grib silfonu izstiept un spiež fiksētos punktus ar <i>p</i>·π<i>D</i>²/4 — kiloņūtonos, krietni vairāk par cilpas spēku.",
@@ -4113,7 +4127,7 @@ var KP1Phys = (function () {
   // Parameter panel (#caurule) and the Sistēma panel: views of SYS
   // ======================================================================
   function mText(d) { return function (v) { return fmt(v, d) + NB + "m"; }; }
-  function cText(v) { return fmt(v, 0) + NB + "°C"; }
+  function cText(v) { return fmtK(v) + NB + "°C"; }
   function updatePanel() {
     var rows = [
       ["grp", "Šķērsgriezums"],
@@ -4123,7 +4137,7 @@ var KP1Phys = (function () {
       ["<i>W</i>", sig(R.W, 3) + NB + "mm³"],
       ["<i>i</i>", sig(R.i, 3) + NB + "mm"],
       ["grp", "1. daļa — FP abos galos"],
-      ["Δ<i>T</i>", fmt(R.dT, 0) + NB + "K"],
+      ["Δ<i>T</i>", fmtK(R.dT) + NB + "K"],
       ["Δ<i>L</i>", mm(R.dL)],
       ["<i>N</i> (ja noturētu)", kN(R.N)],
       ["Δ<i>T</i><sub>FP</sub>", fmt(R.dTatFRd, 1) + NB + "K"],
@@ -4197,7 +4211,7 @@ var KP1Phys = (function () {
     $("sys-reset").addEventListener("click", resetRecommended);
     View($("caurule"), updatePanel);
     OUTS.push(function () {
-      $("nav-chip").textContent = R.dn + " · " + fmt(SYS.L1, 0) + " m · ΔT " + fmt(R.dT, 0) + " K";
+      $("nav-chip").textContent = R.dn + " · " + fmt(SYS.L1, 0) + " m · ΔT " + fmtK(R.dT) + " K";
     });
     // the panel itself: a right-hand drawer on wide screens, a bottom sheet on phones
     var btn = $("sys-toggle"), panel = $("sistema");
