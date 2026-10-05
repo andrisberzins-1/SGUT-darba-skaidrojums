@@ -4035,7 +4035,7 @@ var KP1Phys = (function () {
         ", bet <i>N</i><sub>cr</sub> pie lielākā attāluma starp vadotnēm (" + fmt(gap, 2) + " m) ir " + kN(Ncr) + " — " + sig(Ncr / FB, 2) +
         " reizes vairāk, jo vadotne ir katrā balstā. Ja vadotnes būtu tikai pie cilpas, Eilera garums būtu ap <i>L</i><sub>1</sub>/2 = " +
         fmt(SYS.L1 / 2, 1) + " m un <i>N</i><sub>cr</sub> = " + kN(Nhalf, 2) +
-        (Nhalf < FB ? " — mazāk par <i>N</i><sub>max</sub>: caurule zaudētu noturību." : " — tikai " + sig(Nhalf / FB, 2) + " reizes vairāk.");
+        (Nhalf < FB ? " — mazāk par <i>N</i><sub>max</sub>: šī vienkāršotā noturības pārbaude nav izpildīta (tā pieņem lielāko spiedi visā posmā)." : " — tikai " + sig(Nhalf / FB, 2) + " reizes vairāk.");
     }
     View($("f-fpbar"), update);
     heatControls("x10", fig);
