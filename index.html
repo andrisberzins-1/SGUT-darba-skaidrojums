@@ -4212,6 +4212,24 @@ var KP1Phys = (function () {
     new MutationObserver(retheme).observe(doc.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
   }
   if (doc.fonts && doc.fonts.ready) doc.fonts.ready.then(function () { FIGS.forEach(function (f) { f.draw(); }); });
+  // Printed handouts link here with QR codes to a section (#u-cilpa …). The
+  // browser jumps to the anchor before the figures above it have their
+  // height; Chrome's scroll anchoring keeps the target in view, Safari has
+  // none, so jump again once the layout is final — unless the reader has
+  // already started scrolling.
+  var readerMoved = false;
+  ["wheel", "touchstart", "keydown"].forEach(function (ev) {
+    window.addEventListener(ev, function () { readerMoved = true; }, { once: true, passive: true });
+  });
+  function goToHash() {
+    var id = decodeURIComponent((location.hash || "").slice(1));
+    var target = id && doc.getElementById(id);
+    if (target && !readerMoved) target.scrollIntoView({ block: "start" });
+  }
+  if (location.hash) {
+    requestAnimationFrame(goToHash);
+    window.addEventListener("load", function () { requestAnimationFrame(goToHash); });
+  }
 })();
 </script>
 </body>
