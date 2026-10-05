@@ -1040,7 +1040,7 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
   </figure>
 
   <div class="notice"><h3>Ko pamanīt</h3><ul>
-    <li>Starp sliktāko un labāko shēmu ir vairāk nekā 100 reižu.</li>
+    <li id="x10-note1">Spēks uz FP sliktākajā shēmā ir daudzkārt lielāks nekā labākajā.</li>
     <li id="x10-note2">Ar cilpu atlikusī spiede posmā ir krietni zem <i>N</i><sub>cr</sub> pie izvēlētā soļa, ja vadotne ir katrā balstā.</li>
     <li>Silfons ietaupa vietu, bet jau vienkāršotā novērtējumā tā spiediena spēks ir tuvu apskavas nestspējai; īstais ir lielāks.</li>
   </ul></div>
@@ -1103,7 +1103,8 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
     </div>
     <p class="fine">Mācību materiāls BM0 kursa projektam KP1. Attēli ir shematiski, garumi nav mērogā, pārvietojumi
     palielināti. Formulu rezultāti sakrīt ar rokas aprēķinu; sistēmas skatā berzi un FP spēkus skaita pa
-    balstiem, tāpēc tie var atšķirties no <i>μ</i>·<i>q</i>·<i>L</i><sub>1</sub> par dažiem procentiem.</p>
+    balstiem, tāpēc tie var nedaudz atšķirties no rokas aprēķina (<i>F<sub>μ</sub></i> = <i>μ</i>·<i>q</i>·<i>L</i><sub>1</sub>,
+    <i>F</i><sub>A</sub> = <i>F<sub>μ</sub></i> + <i>F</i><sub>L</sub>, <i>F</i><sub>B</sub> = <i>F</i><sub>U</sub> + <i>F<sub>μ</sub></i>/2).</p>
   </div>
 </footer>
 
@@ -4030,6 +4031,10 @@ var KP1Phys = (function () {
         return '<li class="' + (its[i].F <= C.FRd ? "ok" : "bad") + '">' + s + "</li>";
       }).join("");
       var gap = SUP("U").guideGap;
+      var full = items(1).map(function (it) { return it.F; });
+      $("x10-note1").innerHTML = "Pie pilnas sildīšanas spēks uz FP sliktākajā shēmā (" + kN(Math.max.apply(null, full)) +
+        ") ir ≈ " + sig(Math.max.apply(null, full) / Math.min.apply(null, full), 2) + " reizes lielāks nekā labākajā (" +
+        kN(Math.min.apply(null, full), 3) + ") — šai caurulei, <i>μ</i> un Δ<i>T</i>.";
       var FB = FUat(1) + R.Fmu / 2, Ncr = P.euler(R.EI, gap * 1000), Nhalf = P.euler(R.EI, SYS.L1 * 500);
       $("x10-note2").innerHTML = "Ar cilpu lielākā spiede posmā ir <i>N</i><sub>max</sub> = <i>F</i><sub>B</sub> = " + kN(FB, 3) +
         ", bet <i>N</i><sub>cr</sub> pie lielākā attāluma starp vadotnēm (" + fmt(gap, 2) + " m) ir " + kN(Ncr) + " — " + sig(Ncr / FB, 2) +
