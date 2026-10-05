@@ -610,7 +610,7 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
   </figure>
 
   <div class="notice"><h3>Ko pamanīt</h3><ul>
-    <li>Ar FP abos galos caurule nekustas nemaz, bet spēks uz fiksētajiem punktiem ir simtos kN — un pēc dažiem desmitiem grādu caurule starp apskavām zaudē noturību.</li>
+    <li>Ar FP abos galos caurule varētu nekustēties tikai tad, ja FP izturētu simtiem kN. Īstā apskava padodas jau pēc dažiem grādiem; ja tā noturētu, caurule starp apskavām zaudētu noturību pēc dažiem desmitiem grādu.</li>
     <li>Ar FP pie A kustība aug vienmērīgi no 0 pie A līdz <i>δ</i><sub>B</sub> stūrī: kurpes pie B slīd visvairāk, īsais posms BC saliecas kā S burts.</li>
     <li>Katrs balsts nes savu caurules gabalu (pa pusei no abiem laidumiem): Σ<i>R</i><sub>v</sub> = <i>q</i> · caurules garums. Berze katrā balstā ir <i>μ</i>·<i>R</i><sub>v</sub>, un visu berzi savāc fiksētais punkts.</li>
     <li><b>Atdziestot viss griežas otrādi:</b> caurule slīd atpakaļ, berzes bultas pagriežas, un FP berzes daļa maina zīmi — spiede kļūst par stiepi.</li>
@@ -753,7 +753,7 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
     idealizētā modelī spēks paliek ap <i>N</i><sub>cr</sub>, bet caurule ir zaudējusi noturību. Attēlā forma pēc noturības zuduma ir
     idealizēta ilustrācija, nevis aprēķins.</li>
     <li>Grafikā sarkanā līnija <i>N</i> un līkne <i>N</i><sub>cr</sub> krustojas pie <i>s</i><sub>cr</sub>: ja apskavas ir tuvāk, caurule noturas.</li>
-    <li id="x4-note3">Pie montētāja piedāvātā <i>s</i><sub>0</sub> = 5 m caurule zaudē noturību krietni zem darba temperatūras.</li>
+    <li id="x4-note3">Ja FP noturētu, pie montētāja piedāvātā <i>s</i><sub>0</sub> = 5 m caurule zaudētu noturību krietni zem darba temperatūras.</li>
   </ul></div>
 </section>
 
@@ -853,7 +853,7 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
 
   <div class="notice"><h3>Ko pamanīt</h3><ul>
     <li>Mainot soli, kāpņu pakāpieni mainās, bet augšējais līmenis gandrīz nemainās.</li>
-    <li>Kurpes pie B slīd visvairāk (par <i>δ</i><sub>B</sub>), pie A gandrīz nemaz. PTFE plāksne samazina berzi trīs reizes.</li>
+    <li>Kurpes pie B slīd visvairāk (par <i>δ</i><sub>B</sub>), pie A gandrīz nemaz. PTFE plāksne (<i>μ</i> = 0,1) samazina berzi 2,5–4 reizes — atkarībā no tērauda kurpes <i>μ</i> = 0,25–0,40.</li>
     <li>Atdziestot caurule slīd atpakaļ, berze maina virzienu, un spiede kļūst par stiepi.</li>
   </ul></div>
 </section>
@@ -2813,11 +2813,11 @@ var KP1Phys = (function () {
         var gives = dTc > R.dTatFRd;
         rows.push(["<i>N</i> = <i>EAα</i>Δ<i>T</i> — " + HYP_SHORT, kN(S.N)],
                   ["apskava padodas pie Δ<i>T</i><sub>FP</sub> = <i>F</i><sub>Rd</sub>/(<i>EAα</i>)", fmt(R.dTatFRd, 1) + NB + "K<br>" + chip(!gives, "notur", "padevusies")],
-                  ["caurule zaudē noturību pie Δ<i>T</i><sub>cr</sub> (<i>s</i><sub>0</sub> = " + fmt(SYS.s0, 1) + " m)", fmt(R.dTcr, 0) + NB + "K<br>" +
+                  ["ja FP noturētu: noturības zudums pie Δ<i>T</i><sub>cr</sub> (<i>s</i><sub>0</sub> = " + fmt(SYS.s0, 1) + " m)", fmt(R.dTcr, 0) + NB + "K<br>" +
                     (bucks ? '<span class="st bad">zaudējusi noturību</span>' : '<span class="st ok">taisna</span>')]);
         desc = "<b>FP abos galos.</b> Caurule nevar pagarināties un spiež abus fiksētos punktus. Spēks <i>N</i> = " + kN(S.N) +
           " rastos tikai tad, " + HYP + " — tas ir salīdzinājumam. Īstā caurule tik tālu netiek: apskava padodas jau pie Δ<i>T</i> ≈ " +
-          fmt(R.dTatFRd, 1) + " K, un caurule starp apskavām zaudē noturību pie Δ<i>T</i><sub>cr</sub> ≈ " + fmt(R.dTcr, 0) + " K.";
+          fmt(R.dTatFRd, 1) + " K. Ja apskava noturētu, caurule starp apskavām zaudētu noturību pie Δ<i>T</i><sub>cr</sub> ≈ " + fmt(R.dTcr, 0) + " K.";
       } else if (SYS.scheme === "L" || SYS.scheme === "mid") {
         var mid = SYS.scheme === "mid";
         var tip = mid ? S.deltaB / 2 : S.deltaB;
@@ -3137,7 +3137,7 @@ var KP1Phys = (function () {
         " % no <i>f</i><sub>y</sub>, bet spēks uz FP — " + sig(R.anchorRatio, 2) + " reizes lielāks par <i>F</i><sub>Rd</sub> = 5 kN.";
       $("x3-real").innerHTML = "<b>Ko dara īstā caurule?</b> <i>N</i> = <i>EAα</i>Δ<i>T</i> ir spēks, kas rastos, " + HYP3 +
         " — tas ir salīdzinājumam. Īstenībā tik liels spēks nerodas: apskava padodas jau pie Δ<i>T</i><sub>FP</sub> = " +
-        "<i>F</i><sub>Rd</sub>/(<i>EAα</i>) ≈ " + fmt(R.dTatFRd, 1) + " K, un caurule starp apskavām zaudē noturību pie Δ<i>T</i><sub>cr</sub> ≈ " +
+        "<i>F</i><sub>Rd</sub>/(<i>EAα</i>) ≈ " + fmt(R.dTatFRd, 1) + " K. Ja apskava noturētu, caurule starp apskavām zaudētu noturību pie Δ<i>T</i><sub>cr</sub> ≈ " +
         fmt(R.dTcr, 0) + " K (4. sadaļa).";
       $("x3-hoop").innerHTML = "<b>Salīdzinājumam — spiediens.</b> Iekšējais spiediens 6 bar stiepj sieniņu pa apkārtmēru ar " +
         "<i>σ</i><sub>h</sub> = <i>pD</i>/(2<i>t</i>) = " + MPa(R.sigmaH, 2) + " — " + sig(R.sigma / R.sigmaH, 2) +
@@ -3244,7 +3244,7 @@ var KP1Phys = (function () {
           kN(Ncr) + ", un caurule ir zaudējusi noturību; attēlā forma un amplitūda ir ilustrācija, nevis aprēķins. Lai to novērstu, apskavas jāliek tuvāk par " +
           (isFinite(scr) ? m2(scr) : "—") + "."
         : '<span class="st ok">taisna</span> <i>N</i> = ' + kN(N) + " vēl ir mazāks par <i>N</i><sub>cr</sub> = " + kN(Ncr) + ".";
-      $("x4-note3").innerHTML = "Pie apskavu soļa <i>s</i><sub>0</sub> = " + fmt(SYS.s0, 1) + " m caurule zaudē noturību jau pie Δ<i>T</i> ≈ " + fmt(R.dTcr, 0) +
+      $("x4-note3").innerHTML = "Ja FP noturētu, pie apskavu soļa <i>s</i><sub>0</sub> = " + fmt(SYS.s0, 1) + " m caurule zaudētu noturību jau pie Δ<i>T</i> ≈ " + fmt(R.dTcr, 0) +
         " K — bet darbā Δ<i>T</i> = " + fmtK(R.dT) + " K.";
     }
     View($("f-buck"), update);
@@ -3953,8 +3953,8 @@ var KP1Phys = (function () {
         ["izvēlētais <i>H</i>", m1(Hm)],
         ["<i>H</i><sub>min,U</sub>", m2(R.HminU)],
         ["nepieciešamais <i>H</i> (noapaļots)", m1(R.H)],
-        ["gājiens pie A pusē", mm(delta * pos, 2)],
-        ["gājiens pie B pusē", mm(delta * (1 - pos), 2)]
+        ["gājiens A pusē", mm(delta * pos, 2)],
+        ["gājiens B pusē", mm(delta * (1 - pos), 2)]
       ]);
       $("x9-v").innerHTML = (ok ? '<span class="st ok">' + MPa(gu.sigma) + " ≤ 80</span> " : '<span class="st bad">' + MPa(gu.sigma) + " &gt; 80</span> ") +
         (fits ? '<span class="st ok">ietilpst</span> ' : '<span class="st bad">neietilpst</span> ') +
@@ -4016,7 +4016,7 @@ var KP1Phys = (function () {
       var sent = [
         "<b>FP abos galos: " + kN(its[0].F) + "</b> — tik liels spēks rastos tikai tad, ja caurule paliktu taisna un FP noturētu (salīdzinājumam). " +
           (its[0].F > C.FRd ? "Tas ir " + sig(its[0].F / C.FRd, 2) + " reizes vairāk, nekā apskava notur. " : "") +
-          "Īstenībā apskava padodas jau pie Δ<i>T</i> ≈ " + fmt(R.dTatFRd, 1) + " K, un caurule zaudē noturību pie Δ<i>T</i><sub>cr</sub> ≈ " + fmt(R.dTcr, 0) + " K.",
+          "Īstenībā apskava padodas jau pie Δ<i>T</i> ≈ " + fmt(R.dTatFRd, 1) + " K; ja tā noturētu, caurule zaudētu noturību pie Δ<i>T</i><sub>cr</sub> ≈ " + fmt(R.dTcr, 0) + " K.",
         "<b>L līkums: " + kN(R.Fmu * mov, 3) + " + " + kN(R.FL * f, 3) + " = " + kN(its[1].F, 3) + "</b> — " +
           (its[1].F > C.FRd ? "virs <i>F</i><sub>Rd</sub>; un kāja ir pārslogota (" + MPa(R.sigmaL * f) + ")." : "zem <i>F</i><sub>Rd</sub>, bet kājā " + MPa(R.sigmaL * f) + "."),
         "<b>U cilpa (<i>H</i> = " + fmt(SYS.H, 1) + " m): " + kN(FUat(f), 3) + " + " + kN(R.Fmu / 2 * mov, 3) + " = " + kN(its[2].F, 3) + "</b> — " +
@@ -4173,7 +4173,7 @@ var KP1Phys = (function () {
       ["Shēma", SCHEME_LV[SYS.scheme]],
       ["Tagad", fmtTemp(SYS.t) + (heating() ? " ↑" : " ↓")],
       ["<i>N</i>, ja caurule paliktu taisna un FP noturētu", kN(N) + chip(N <= C.FRd)],
-      ["apskava padodas / noturības zudums pie Δ<i>T</i>", fmt(R.dTatFRd, 1) + " / " + fmt(R.dTcr, 0) + NB + "K"],
+      ["apskava padodas / noturības zudums (ja FP noturētu) pie Δ<i>T</i>", fmt(R.dTatFRd, 1) + " / " + fmt(R.dTcr, 0) + NB + "K"],
       ["<i>F<sub>μ</sub></i> = <i>μqL</i><sub>1</sub>", kN(R.Fmu)],
       ["<i>δ</i><sub>B</sub>", mm(d)],
       ["<i>σ</i><sub>L</sub> kājā", MPa(sL) + chip(sL <= C.sigmaAllow)],
