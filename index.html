@@ -198,6 +198,7 @@ sub, sup { font-size: 0.72em; line-height: 0; }
 .panel-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; padding: 14px 18px 0; }
 .panel-head h2 { font-size: 18px; }
 .panel-head p { margin: 0; font-size: 14px; color: var(--ink-2); }
+.panel-note { margin: 8px 18px 0; font-size: 14px; color: var(--ink-2); max-width: 92ch; }
 .panel-body { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px 28px; padding: 12px 18px 18px; }
 @media (min-width: 900px) { .panel-body { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); } }
 .pgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px 20px; align-content: start; }
@@ -406,8 +407,8 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
     tikai par dažiem centimetriem uz desmitiem metru. Ja tai to neļauj, rodas milzīgi spēki. Ja ļauj,
     kustībai kaut kur jānonāk. Šeit katru kursa projekta soli vari izspēlēt pats.</p>
     <p class="howto">Kā lietot: poga ▶ sāk animāciju, slīdnis blakus ļauj iet pa temperatūru soli pa solim.
-    Visās animācijās kustības ir stipri palielinātas — īstās ir milimetros. Skaitļi ir piemēra caurulei;
-    sava varianta aprēķinu projektā veic pats.</p>
+    Visās animācijās kustības ir stipri palielinātas — īstās ir milimetros. Sākumā redzama piemēra caurule;
+    ievadi sava varianta datus panelī „Caurule un trase“ vai „Sistēma“ un salīdzini ar savu rokas aprēķinu.</p>
 
     <div class="schemes">
       <a class="scheme" href="#aizliegta">
@@ -486,9 +487,14 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
 <!-- ======================= 0. PARAMETERS ======================= -->
 <section class="panel" id="caurule" aria-labelledby="caurule-h">
   <div class="panel-head">
-    <h2 id="caurule-h">Piemēra caurule — rēķinu ar savu variantu veic pats</h2>
-    <p>Visi slīdņi lapā ir saistīti: mainot vienu, mainās visur. Tā nav atbilžu pārbaude. <a class="tag" href="#uzd-1">Uzdevumā: 1. solis</a></p>
+    <h2 id="caurule-h">Caurule un trase — ievadi sava varianta datus</h2>
+    <p><a class="tag" href="#uzd-1">Uzdevumā: 1. solis</a></p>
   </div>
+  <p class="panel-note">Iestati sava varianta datus un salīdzini ar savu rokas aprēķinu. Visi slīdņi lapā ir saistīti:
+    mainot vienu, mainās visur. Šķērsgriezums, Δ<i>L</i>, <i>N</i>, <i>σ</i>, <i>q</i>, <i>s</i><sub>σ</sub>, <i>s</i><sub>δ</sub>,
+    <i>δ</i><sub>B</sub>, <i>F</i><sub>L</sub>, <i>σ</i><sub>L</sub>, <i>H</i><sub>min</sub>, <i>F</i><sub>U</sub> un <i>σ</i><sub>U</sub>
+    sakrīt ar formulām precīzi. Berzes summas un fiksēto punktu spēki sistēmas skatā (1. sadaļā) var atšķirties par dažiem
+    procentiem: tur katru balstu skaita atsevišķi, bet <i>μ</i>·<i>q</i>·<i>L</i><sub>1</sub> ir tuvinājums.</p>
   <div class="panel-body">
     <div class="pgrid">
       <div class="ctl"><label for="p-pipe">Caurule (D × t)</label><span class="out"></span>
@@ -505,7 +511,7 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
           <option value="50">50 mm</option>
         </select></div>
       <div class="ctl"><label for="p-L1">Taisnais posms <i>L</i><sub>1</sub> (A–B)</label><output id="p-L1-o" for="p-L1">27 m</output>
-        <input type="range" id="p-L1" min="10" max="60" step="1" value="27"></div>
+        <input type="range" id="p-L1" min="10" max="100" step="1" value="27"></div>
       <div class="ctl"><label for="p-L2">Īsais posms <i>L</i><sub>2</sub> (B–C)</label><output id="p-L2-o" for="p-L2">2,5 m</output>
         <input type="range" id="p-L2" min="1" max="6" step="0.1" value="2.5"></div>
       <div class="ctl"><label for="p-T0">Montāžas temperatūra <i>T</i><sub>0</sub></label><output id="p-T0-o" for="p-T0">5 °C</output>
@@ -515,7 +521,8 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
       <div class="ctl"><label for="p-mu">Berzes koeficients <i>μ</i></label><output id="p-mu-o" for="p-mu">0,30</output>
         <input type="range" id="p-mu" min="0.1" max="0.4" step="0.05" value="0.3"></div>
       <p class="small muted" style="margin:0;align-self:end">Konstantes: <i>E</i> = 210 000 MPa, <i>α</i> = 12·10<sup>−6</sup> 1/K,
-        <i>f</i><sub>y</sub> = 235 MPa, <i>F</i><sub>Rd</sub> = 5,0 kN, <i>σ</i><sub>allow</sub> = 80 MPa, <i>p</i> = 6 bar.</p>
+        <i>f</i><sub>y</sub> = 235 MPa, <i>F</i><sub>Rd</sub> = 5,0 kN, <i>p</i> = 6 bar. Šajā projektā pieņemts: <i>σ</i><sub>allow</sub> = 80 MPa,
+        <i>δ</i><sub>lim</sub> = 2,5 mm, <i>σ</i><sub>b,lim</sub> = 16 MPa.</p>
     </div>
     <dl class="vals" id="p-vals"></dl>
   </div>
@@ -565,13 +572,13 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
         </div>
         <div class="ctls2">
           <div class="ctl"><label for="h1-L1">Taisnais posms <i>L</i><sub>1</sub></label><output id="h1-L1-o" for="h1-L1">27 m</output>
-            <input type="range" id="h1-L1" min="10" max="60" step="1" value="27"></div>
+            <input type="range" id="h1-L1" min="10" max="100" step="1" value="27"></div>
           <div class="ctl"><label for="h1-L2">Īsais posms <i>L</i><sub>2</sub></label><output id="h1-L2-o" for="h1-L2">2,5 m</output>
             <input type="range" id="h1-L2" min="1" max="6" step="0.1" value="2.5"></div>
           <div class="ctl" id="h1-s0-wrap"><label for="h1-s0">Apskavu solis <i>s</i><sub>0</sub></label><output id="h1-s0-o" for="h1-s0">5,0 m</output>
             <input type="range" id="h1-s0" min="2" max="6" step="0.1" value="5"></div>
           <div class="ctl" id="h1-s-wrap"><label for="h1-s">Balstu solis <i>s</i></label><output id="h1-s-o" for="h1-s">3,5 m</output>
-            <input type="range" id="h1-s" min="2" max="6" step="0.1" value="3.5"></div>
+            <input type="range" id="h1-s" min="2" max="9" step="0.1" value="3.5"></div>
           <div class="ctl key" id="h1-H-wrap" hidden><label for="h1-H">Cilpas dziļums <i>H</i></label><output id="h1-H-o" for="h1-H">2,9 m</output>
             <input type="range" id="h1-H" min="1" max="5" step="0.1" value="2.9"></div>
           <div class="ctl" id="h1-pos-wrap" hidden><label for="h1-pos">Cilpas vieta posmā</label><output id="h1-pos-o" for="h1-pos">vidū</output>
@@ -664,7 +671,7 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
     <p>Tagad caurules abos galos ir fiksētie punkti. Caurule grib pagarināties par Δ<i>L</i>, bet nevar.
     Iedomājies to divos soļos: vispirms caurule brīvi pagarinās, tad fiksētie punkti to saspiež atpakaļ
     tieši par Δ<i>L</i> — kā atsperi.</p>
-    <p>Lai stieni saspiestu par Δ<i>L</i>, vajag spēku <i>N</i> = <i>EA</i>·Δ<i>L</i>/<i>L</i><sub>1</sub>. Bet Δ<i>L</i> pats
+    <p>Lai stieni saspiestu par Δ<i>L</i>, vajadzētu spēku <i>N</i> = <i>EA</i>·Δ<i>L</i>/<i>L</i><sub>1</sub>. Bet Δ<i>L</i> pats
     ir <i>α</i>·<i>L</i><sub>1</sub>·Δ<i>T</i>, tāpēc garums formulā saīsinās. Garākai caurulei ir jāsaspiež vairāk, bet tā arī
     saspiežas vieglāk — rezultāts ir tas pats.</p>
   </div>
@@ -686,12 +693,12 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
             <input type="range" id="x3-temp" min="0" max="1000" step="1" value="1000"></div>
         </div>
         <div class="ctl"><label for="x3-L">Posma garums <i>L</i><sub>1</sub> (visai sistēmai)</label><output id="x3-L-o" for="x3-L">27 m</output>
-          <input type="range" id="x3-L" min="10" max="60" step="1" value="27"></div>
+          <input type="range" id="x3-L" min="10" max="100" step="1" value="27"></div>
       </div>
       <div>
         <dl class="ro" id="x3-ro"></dl>
         <div class="gauge" id="x3-g1" style="margin-top:12px"><div class="g-head"><span><i>σ</i> / <i>f</i><sub>y</sub> — caurules siena</span><span class="g-val"></span></div><div class="g-bar"><span class="g-fill"></span><span class="g-lim"></span></div></div>
-        <div class="gauge" id="x3-g2" style="margin-top:8px"><div class="g-head"><span><i>N</i> / <i>F</i><sub>Rd</sub> — fiksētā punkta apskava</span><span class="g-val"></span></div><div class="g-bar"><span class="g-fill"></span><span class="g-lim"></span></div></div>
+        <div class="gauge" id="x3-g2" style="margin-top:8px"><div class="g-head"><span><i>N</i> / <i>F</i><sub>Rd</sub> — ja apskava noturētu (salīdzinājumam)</span><span class="g-val"></span></div><div class="g-bar"><span class="g-fill"></span><span class="g-lim"></span></div></div>
       </div>
     </div>
   </figure>
@@ -701,6 +708,7 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
     <li id="x3-note2">Spriegums pietuvojas tecēšanas robežai, bet apskava fiksētajā punktā tur tikai 5 kN.</li>
     <li>Aksiālais spēks ir vienāds visā garumā; lieces nav, kamēr caurule ir taisna.</li>
   </ul></div>
+  <p class="aside" id="x3-real"></p>
   <p class="aside" id="x3-hoop"></p>
 </section>
 
@@ -711,7 +719,8 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
   <div class="prose">
     <p>Apskavas tur cauruli sāniski, bet to neiespīlē. Tāpēc posms starp divām apskavām ir kā tievs stienis, ko
     spiež no galiem. Kamēr spēks ir mazs, stienis paliek taisns. Kad spēks sasniedz kritisko <i>N</i><sub>cr</sub>,
-    tas pēkšņi izliecas sāņus — to sauc par <b>izlocīšanos</b> (stabilitātes zudumu).</p>
+    tas pēkšņi izlokās sāņus — to sauc par <b>izlocīšanos</b> (stabilitātes zudumu). Nejauc ar <b>izlieci</b>:
+    izliece ir sijas ieliekums no slodzes (piemēram, no pašsvara 5. sadaļā).</p>
     <p><i>N</i><sub>cr</sub> krīt ar attāluma kvadrātu: divreiz garāks posms — četrreiz mazāks kritiskais spēks.
     Inerces rādiuss <i>i</i> = √(<i>I</i>/<i>A</i>) parāda, cik „resna“ liecē ir caurule.</p>
   </div>
@@ -740,7 +749,9 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
   </figure>
 
   <div class="notice"><h3>Ko pamanīt</h3><ul>
-    <li>Līdz Δ<i>T</i><sub>cr</sub> caurule paliek taisna; tālāk tā izliecas, un spēks vairs neaug — bet caurule ir līka.</li>
+    <li>Līdz Δ<i>T</i><sub>cr</sub> caurule paliek taisna. Virs Δ<i>T</i><sub>cr</sub> taisna stieņa modelis vairs neder:
+    idealizētā modelī spēks paliek ap <i>N</i><sub>cr</sub>, bet caurule ir izlocījusies. Attēlā izlocīšanās forma ir
+    idealizēta ilustrācija, nevis aprēķins.</li>
     <li>Grafikā sarkanā līnija <i>N</i> un līkne <i>N</i><sub>cr</sub> krustojas pie <i>s</i><sub>cr</sub>: ja apskavas ir tuvāk, caurule noturas.</li>
     <li id="x4-note3">Pie montētāja piedāvātā <i>s</i><sub>0</sub> = 5 m caurule izlokās krietni zem darba temperatūras.</li>
   </ul></div>
@@ -752,7 +763,7 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
     <a class="tag" href="#uzd-5">Uzdevumā: 5.–6. solis</a></div>
   <div class="prose">
     <p>Tagad fiksētais punkts ir tikai pie A, pārējās apskavas ir slīdbalsti. Caurule var brīvi pagarināties, un
-    balsti nes tikai svaru. Svars uz metru <i>q</i> sastāv no trim daļām: tērauda sieniņas, ūdens caurules iekšā un
+    vertikālajā aprēķinā balsti uzņem pašsvaru. Svars uz metru <i>q</i> sastāv no trim daļām: tērauda sieniņas, ūdens caurules iekšā un
     izolācijas apkārt.</p>
     <p>Starp diviem balstiem caurule ieliecas kā sija. Mēs to rēķinām kā vienu brīvi balstītu laidumu — tas ir
     drošības pusē. Jo retāk balsti, jo lielāka izliece un spriegums: <b>izliece aug ar <i>s</i><sup>4</sup>,
@@ -775,7 +786,7 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
             <svg class="i-pause" viewBox="0 0 20 20" aria-hidden="true"><rect x="4" y="3" width="4.5" height="14"/><rect x="11.5" y="3" width="4.5" height="14"/></svg>
           </button>
           <div class="ctl"><label for="x5-s">Balstu solis <i>s</i></label><output id="x5-s-o" for="x5-s">3,5 m</output>
-            <input type="range" id="x5-s" min="2" max="6" step="0.05" value="3.5"></div>
+            <input type="range" id="x5-s" min="2" max="9" step="0.05" value="3.5"></div>
         </div>
         <button type="button" class="btn" id="x5-reset">Atjaunot ieteikto <i>s</i></button>
         <div class="ctl"><label for="x5-fall">Caurules kritums <i>i</i></label><output id="x5-fall-o" for="x5-fall">0,002</output>
@@ -786,14 +797,17 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
     </div>
   </figure>
 
-  <p class="aside"><b>Kāpēc tik stingra izliece — tikai 2,5 mm?</b> Caurule ir guldīta ar nelielu kritumu (0,002–0,003),
-  lai ūdeni varētu izlaist un gaisu izvadīt. Ieliekuma slīpums pie balsta ir 3,2·<i>δ</i>/<i>s</i>. Ja tas ir lielāks par
-  kritumu, laiduma vidū paliek ūdens kabata, bet pie balstiem — gaisa kabata. Stiprības dēļ šāda robeža nebūtu vajadzīga.</p>
+  <p class="aside"><b>No kurienes 2,5 mm un 16 MPa?</b> Tās ir šajā projektā pieņemtas robežas — tādas, uz kurām balstās
+  ražotāju balstu soļa tabulas. Stiprības dēļ tik stingra izliece nebūtu vajadzīga. Caurule ir guldīta ar nelielu kritumu
+  <i>i</i> (parasti 0,002–0,003), lai ūdeni varētu izlaist un gaisu izvadīt. Īstais nosacījums ir
+  <b>3,2·<i>δ</i>/<i>s</i> ≤ <i>i</i></b>: ieliekuma slīpums pie balsta nedrīkst pārsniegt kritumu. Ja tas ir lielāks,
+  laiduma vidū paliek ūdens kabata, bet pie balstiem — gaisa kabata. Vai kabatas rodas, atkarīgs no <i>δ</i>, <i>s</i> un
+  <i>i</i> kopā, ne tikai no 2,5 mm.</p>
 
   <div class="notice"><h3>Ko pamanīt</h3><ul>
     <li>Izliece aug daudz straujāk par spriegumu. Soli nosaka izliece — bet tikai ar dažu procentu pārsvaru.</li>
     <li>Izvēlas lielāko soli no rindas 2,0; 2,5; … 5,0 m, kas iztur abus kritērijus.</li>
-    <li>Kad ieliekuma slīpums pārsniedz kritumu, parādās kabatas — tieši ap to soli, kur izliece pārsniedz 2,5 mm.</li>
+    <li>Kabatas parādās, kad 3,2·<i>δ</i>/<i>s</i> &gt; <i>i</i>. Maini kritumu: pie lielāka krituma tās parādās tikai pie lielāka soļa.</li>
   </ul></div>
 </section>
 
@@ -831,7 +845,7 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
             <input type="range" id="x6-temp" min="0" max="1000" step="1" value="1000"></div>
         </div>
         <div class="ctl"><label for="x6-s">Balstu solis <i>s</i></label><output id="x6-s-o" for="x6-s">3,5 m</output>
-          <input type="range" id="x6-s" min="2" max="6" step="0.1" value="3.5"></div>
+          <input type="range" id="x6-s" min="2" max="9" step="0.1" value="3.5"></div>
       </div>
       <dl class="ro" id="x6-ro"></dl>
     </div>
@@ -858,8 +872,9 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
   <div class="eq">
     <div><span class="g"><span class="f"><span><i>δ</i></span><span>2</span></span> = <span class="f"><span><i>F</i> · (<i>H</i>/2)³</span><span>3 · <i>E</i> · <i>I</i></span></span></span><span class="g">⇒</span><span class="g"><i>F</i> = <span class="f"><span>12 · <i>E</i> · <i>I</i> · <i>δ</i></span><span><i>H</i>³</span></span></span></div>
     <div><span class="g"><i>M</i><sub>max</sub> = <i>F</i> · <span class="f"><span><i>H</i></span><span>2</span></span> = <span class="f"><span>6 · <i>E</i> · <i>I</i> · <i>δ</i></span><span><i>H</i>²</span></span></span><span class="g"><i>σ</i> = <span class="f"><span><i>M</i></span><span><i>W</i></span></span> = <span class="f"><span>3 · <i>E</i> · <i>D</i> · <i>δ</i></span><span><i>H</i>²</span></span></span></div>
-    <div><span class="g"><i>H</i><sub>min,L</sub> = <span class="rt">√<span><span class="f"><span>3 · <i>E</i> · <i>D</i> · <i>δ</i></span><span><i>σ</i><sub>allow</sub></span></span></span></span></span><span class="g n"><span class="note">Šeit <i>H</i> = <i>L</i><sub>2</sub>.</span></span></div>
+    <div><span class="g"><i>H</i><sub>min,L</sub> = <span class="rt">√<span><span class="f"><span>3 · <i>E</i> · <i>D</i> · <i>δ</i></span><span><i>σ</i><sub>allow</sub></span></span></span></span></span><span class="g n"><span class="note">Šeit <i>H</i> = <i>L</i><sub>2</sub>; <i>σ</i><sub>allow</sub> = 80 MPa ir šajā projektā pieņemts.</span></span></div>
   </div>
+  <p class="aside" id="x7-leg"></p>
 
   <figure class="fig" id="f-lbend">
     <div class="fig-top">
@@ -951,7 +966,7 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
     spēku — tas ir spiests.</p>
     <p>Tā kā katra kāja uzņem tikai pusi kustības, tā var būt √2 reizes īsāka nekā L līkuma kāja. Cilpas vieta
     posmā spriegumu nemaina; tā maina tikai to, cik tālu jāslīd garākās puses balstiem. Abās pusēs cilpai liek
-    vadotnes, lai spiestā caurule neizliektos sāņus.</p>
+    vadotnes, lai spiestā caurule neizlocītos sāņus.</p>
   </div>
   <div class="eq">
     <div><span class="g"><i>F</i><sub>U</sub> = <span class="f"><span>12 · <i>E</i> · <i>I</i> · (<i>δ</i>/2)</span><span><i>H</i>³</span></span> = <span class="f"><span>6 · <i>E</i> · <i>I</i> · <i>δ</i></span><span><i>H</i>³</span></span></span><span class="g"><i>σ</i><sub>U</sub> = <span class="f"><span>3 · <i>E</i> · <i>D</i> · (<i>δ</i>/2)</span><span><i>H</i>²</span></span></span></div>
@@ -997,7 +1012,9 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
     <i>F</i><sub>Rd</sub> = 5 kN. Skala ir logaritmiska — katra nākamā līnija ir 10 reižu vairāk.</p>
     <p><b>Silfona kompensators</b> ir īss gofrēts caurules gabals, kas saspiežas gar asi. Tas aizņem maz vietas, bet
     iekšējais spiediens grib to izstiept un spiež abus fiksētos punktus ar spēku <i>F</i><sub>p</sub> ≈ <i>p</i>·π<i>D</i>²/4.
-    Tāpēc pie silfoniem vajag aprēķinātas vadotnes: pirmo ne tālāk par 4<i>D</i> no silfona, otro — 14<i>D</i>, tālāk pēc Eilera.</p>
+    Tāpēc pie silfoniem vajag aprēķinātas vadotnes: pirmo vadotni — ne tālāk par 4 <i>D</i> no silfona, otro vadotni —
+    ne tālāk par 14 <i>D</i> no pirmās vadotnes, tālāk — pēc Eilera. Šeit silfona spēks ir <b>vienkāršots novērtējums</b>:
+    tas lieto caurules ārējo laukumu, bet īstam silfonam efektīvais laukums ir lielāks, un klāt nāk tā atsperes spēks.</p>
   </div>
   <div class="eq">
     <div><span class="g"><i>F</i><sub>A</sub> = <i>F</i><sub><i>μ</i></sub> + <i>F</i><sub>L</sub></span><span class="g"><i>F</i><sub>B</sub> = <i>F</i><sub>U</sub> + <span class="f"><span><i>F</i><sub><i>μ</i></sub></span><span>2</span></span></span><span class="g"><i>F</i><sub>p</sub> ≈ <i>p</i> · <span class="f"><span>π · <i>D</i>²</span><span>4</span></span></span></div>
@@ -1024,7 +1041,7 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
   <div class="notice"><h3>Ko pamanīt</h3><ul>
     <li>Starp sliktāko un labāko shēmu ir vairāk nekā 100 reižu.</li>
     <li id="x10-note2">Ar cilpu atlikusī spiede posmā ir krietni zem <i>N</i><sub>cr</sub> pie izvēlētā soļa — pietiek ar parastām vadotnēm.</li>
-    <li>Silfons ietaupa vietu, bet tā spiediena spēks vien ir tuvu apskavas nestspējai.</li>
+    <li>Silfons ietaupa vietu, bet jau vienkāršotā novērtējumā tā spiediena spēks ir tuvu apskavas nestspējai; īstais ir lielāks.</li>
   </ul></div>
 </section>
 
@@ -1046,9 +1063,16 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
       <div>
         <h2>Modeļa robežas</h2>
         <ul>
-          <li>Formulas ir taisnai sijai un stienim: līkumi, tējas un metinājumi rēķināti kā taisna caurule.</li>
+          <li>Formulas ir taisnai sijai un stienim: līkumi, trejgabali un metinājumi rēķināti kā taisna caurule.</li>
           <li>Īsti līkumi ir padevīgāki un ar sprieguma koncentrāciju (2–3 reizes). Termiskais spriegums ir noguruma
-            pārbaude starp aukstu un karstu stāvokli (normās ap 150–200 MPa) — tāpēc nominālā robeža ir tikai 80 MPa.</li>
+            pārbaude starp aukstu un karstu stāvokli (normās ap 150–200 MPa) — tāpēc šajā projektā pieņemts, ka nominālais
+            termiskais spriegums nepārsniedz 80 MPa.</li>
+          <li>Robežas 80 MPa, 2,5 mm un 16 MPa ir šajā projektā pieņemtas vērtības, nevis vispārīgi noteikumi. Izlaišanai un
+            atgaisošanai svarīgs ir nosacījums 3,2·<i>δ</i>/<i>s</i> ≤ <i>i</i>.</li>
+          <li>L līkuma kāja BC arī pati sasilst un pagarinās pa savu asi par <i>α</i>·<i>L</i><sub>2</sub>·Δ<i>T</i>. Tas nedaudz pabīda
+            stūri B sāņus; to uzņem posma A–B gals. Tas ir daudz mazāk par <i>δ</i><sub>B</sub>, tāpēc šeit to neievēro.</li>
+          <li>Silfona spēks ir vienkāršots novērtējums: īstam silfonam efektīvais laukums ir lielāks par caurules ārējo, un klāt
+            nāk tā atsperes spēks.</li>
           <li>Temperatūra pieņemta vienāda visā caurulē, un montāžas temperatūrā caurulē sprieguma nav.</li>
           <li>Pašsvara liece (vertikālā plaknē) un termiskā liece (horizontālā plaknē) darbojas dažādās plaknēs un šeit
             netiek saskaitītas.</li>
@@ -1077,7 +1101,8 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
       </div>
     </div>
     <p class="fine">Mācību materiāls BM0 kursa projektam KP1. Attēli ir shematiski, garumi nav mērogā, pārvietojumi
-    palielināti. Skaitļi ir piemēra caurulei, nevis tava varianta atbilde.</p>
+    palielināti. Formulu rezultāti sakrīt ar rokas aprēķinu; sistēmas skatā berzi un FP spēkus skaita pa
+    balstiem, tāpēc tie var atšķirties no <i>μ</i>·<i>q</i>·<i>L</i><sub>1</sub> par dažiem procentiem.</p>
   </div>
 </footer>
 
@@ -1101,7 +1126,7 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
     </div>
     <div class="sys-grp"><h3>Trase</h3>
       <div class="ctl"><label for="sys-L1">Taisnais posms <i>L</i><sub>1</sub></label><output id="sys-L1-o" for="sys-L1">27 m</output>
-        <input type="range" id="sys-L1" min="10" max="60" step="1" value="27"></div>
+        <input type="range" id="sys-L1" min="10" max="100" step="1" value="27"></div>
       <div class="ctl"><label for="sys-L2">Īsais posms <i>L</i><sub>2</sub></label><output id="sys-L2-o" for="sys-L2">2,5 m</output>
         <input type="range" id="sys-L2" min="1" max="6" step="0.1" value="2.5"></div>
     </div>
@@ -1123,7 +1148,7 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
       <div class="ctl"><label for="sys-s0">Apskavu solis <i>s</i><sub>0</sub> (1. daļa)</label><output id="sys-s0-o" for="sys-s0">5,0 m</output>
         <input type="range" id="sys-s0" min="2" max="6" step="0.1" value="5"></div>
       <div class="ctl"><label for="sys-s">Balstu solis <i>s</i> (2.–3. daļa)</label><output id="sys-s-o" for="sys-s">3,5 m</output>
-        <input type="range" id="sys-s" min="2" max="6" step="0.1" value="3.5"></div>
+        <input type="range" id="sys-s" min="2" max="9" step="0.1" value="3.5"></div>
       <div class="seg" role="radiogroup" aria-label="Slīdvirsma">
         <input type="radio" name="sys-mu-t" id="sys-mu-steel" value="0.3" checked><label for="sys-mu-steel">tērauds, <i>μ</i> 0,3</label>
         <input type="radio" name="sys-mu-t" id="sys-mu-ptfe" value="0.1"><label for="sys-mu-ptfe">PTFE, <i>μ</i> 0,1</label>
@@ -1656,6 +1681,12 @@ var KP1Phys = (function () {
   function Tat(t) { return SYS.T0 + t * (SYS.T - SYS.T0); }
   function fmtTemp(t) { return fmt(Tat(t), 0) + NB + "°C · ΔT" + NB + fmt(t * (SYS.T - SYS.T0), 0) + NB + "K"; }
   function heating() { return SYS.dir >= 0; }
+  // The exaggeration actually drawn: the chosen one, but small enough that the
+  // full movement δ_B stays within `limit` (in the drawing's own units × 1000).
+  function exagFor(limit) {
+    return Math.max(1, Math.min(SYS.exag, Math.floor(limit / Math.max(R.dL, 1e-6))));
+  }
+  function exagNote(e) { return e < SYS.exag ? " (samazināts no ×" + SYS.exag + ", lai kustība ietilptu attēlā)" : ""; }
 
   // ---------------- bindings ----------------
   var BINDS = [];          // {key, sync()}
@@ -1825,7 +1856,9 @@ var KP1Phys = (function () {
   var GA = { playing: false, once: false, hold: 0, nextDir: 1, pending: false, touched: false, btns: [] };
   var SW = { playing: false, dir: 1, btn: null };      // spacing sweep (section 5)
   var rafId = 0, lastTs = 0;
-  function anyVisible() { return FIGS.some(function (f) { return f.visible; }); }
+  function anyVisible() {
+    return doc.body.classList.contains("sys-open") || FIGS.some(function (f) { return f.visible; });
+  }
   function tick(ts) {
     rafId = 0;
     var dt = lastTs ? Math.min(60, ts - lastTs) : 16;
@@ -1875,8 +1908,8 @@ var KP1Phys = (function () {
     gaPlay(true);
   }
   function swStep(dt) {
-    var s = SYS.s + SW.dir * dt * 4 / 6500;
-    if (s >= 6) { s = 6; SW.dir = -1; } else if (s <= 2) { s = 2; SW.dir = 1; }
+    var s = SYS.s + SW.dir * dt * 7 / 9000;
+    if (s >= 9) { s = 9; SW.dir = -1; } else if (s <= 2) { s = 2; SW.dir = 1; }
     set({ s: Math.round(s * 100) / 100 }, "sweep");
   }
   function swToggle() {
@@ -2342,6 +2375,8 @@ var KP1Phys = (function () {
   //    readouts and the reactions table. Physics state lives in SYS only.
   // ======================================================================
   var TYPE_LV = { FP: "fiksētais punkts", SL: "slīdbalsts", GD: "vadotne", EQ: "iekārta (A)" };
+  var HYP = "ja caurule paliktu taisna un FP noturētu";
+  var HYP_SHORT = "ja FP noturētu";
   var SCHEME_LV = { both: "FP abos galos", L: "FP pie A, L līkums", mid: "FP posma vidū", U: "FP pie A un B, U cilpa" };
 
   function initHero() {
@@ -2355,7 +2390,7 @@ var KP1Phys = (function () {
     var Bs = null, W = 0, H = 0, tween = null;
     var btns = { "3d": $("h1-v3d"), plan: $("h1-vplan"), side: $("h1-vside") };
     function model(scheme) {
-      return routeModel({ scheme: scheme || SYS.scheme, exag: SYS.exag, LV: LV, KY: KY, KYL: KYL, loopWv: 2.0, rb: 0.5 });
+      return routeModel({ scheme: scheme || SYS.scheme, exag: exagFor(1500), LV: LV, KY: KY, KYL: KYL, loopWv: 2.0, rb: 0.5 });
     }
 
     function basis(yaw, pitch) {
@@ -2581,7 +2616,8 @@ var KP1Phys = (function () {
         var tail = [fc.x + ux * 0.05, fc.y + 0.4, zz], tip = [tail[0] + ux * L, tail[1] + uy * L, zz];
         var a1 = project(tail), a2 = project(tip);
         arrow(ctx, a1.X, a1.Y, a2.X, a2.Y, TH.force, 3, 12);
-        text(ctx, kN(fc.F, 2), (a1.X + a2.X) / 2, Math.min(a1.Y, a2.Y) - 12, { size: 12, weight: 700, color: TH.force, align: "center" });
+        text(ctx, kN(fc.F, 2) + (SYS.scheme === "both" ? " (ja noturētu)" : ""), (a1.X + a2.X) / 2, Math.min(a1.Y, a2.Y) - 12,
+             { size: 12, weight: 700, color: TH.force, align: "center" });
       });
       if (M.cross && SYS.t > 0.01) {
         var cz = ZP + 0.35, cr = M.cross;
@@ -2623,8 +2659,8 @@ var KP1Phys = (function () {
       }
       var tail = W < 640 ? " · nav mērogā" : " · garumi nav mērogā (garais posms saīsināts)";
       var leg = SYS.scheme === "both"
-        ? "Izlocīšanās palielināta ×" + fmt(SYS.exag / 10, SYS.exag % 10 ? 1 : 0) + tail
-        : "Pārvietojumi palielināti ×" + SYS.exag + tail;
+        ? "Izlocīšanās forma idealizēta, ×" + fmt(exagFor(1500) / 10, exagFor(1500) % 10 ? 1 : 0) + tail
+        : "Pārvietojumi palielināti ×" + exagFor(1500) + (W < 640 ? "" : exagNote(exagFor(1500))) + tail;
       text(ctx, leg, 12, H - 14, { size: 12, color: TH.ink2, halo: false });
       text(ctx, "T = " + fmt(Tat(f), 0) + " °C" + (heating() ? " · sildot" : " · atdziestot"), 12, 16,
            { size: 14, weight: 600, color: f > 0.5 ? TH.accent : TH.ink2 });
@@ -2658,7 +2694,7 @@ var KP1Phys = (function () {
     // ---------------- plan view of the whole system ----------------
     function drawPlan(ctx, w, h) {
       var KYp = 1.3, KYLp = 1.0;
-      var M = routeModel({ scheme: SYS.scheme, exag: SYS.exag, LV: LV, KY: KYp, KYL: KYLp, loopWv: 1.8, rb: 0.4 });
+      var M = routeModel({ scheme: SYS.scheme, exag: exagFor(1500), LV: LV, KY: KYp, KYL: KYLp, loopWv: 1.8, rb: 0.4 });
       var isU = SYS.scheme === "U";
       var DVw = Math.max(SYS.H, C.HMax / 1000) * KYLp;
       var bx0 = -1.7, bx1 = LV + 1.6, by0 = isU ? -(DVw + 0.6) : -1.3, by1 = M.HV + 0.9;
@@ -2687,12 +2723,17 @@ var KP1Phys = (function () {
       ctx.fillStyle = core; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = TH.pipeEdge; ctx.stroke();
       // support numbers and reactions
       var all = M.sup.concat(M.fps);
+      var runX = all.filter(function (sp) { return sp.part === "run"; }).map(function (sp) { return X(sp.x); }).sort(function (a, b) { return a - b; });
+      var gap = 1e9;
+      for (var gi = 1; gi < runX.length; gi++) gap = Math.min(gap, runX[gi] - runX[gi - 1]);
+      var every = gap < 18 ? Math.ceil(18 / Math.max(gap, 1)) : 1;
       var maxRv = Math.max.apply(null, all.map(function (sp) { return sp.Rv; })) || 1;
       all.forEach(function (sp) {
         var px = X(sp.x), py = Y(sp.y);
         var nx = sp.ax === "x" ? px : px + pw + 14, ny = sp.ax === "x" ? py - pw / 2 - 16 : py;
         if (sp.part === "loop") ny = py + pw / 2 + 16;
-        text(ctx, String(sp.n), nx, ny, { size: 10, weight: 600, color: TH.ink2, align: "center" });
+        if (every === 1 || sp.n % every === 0 || sp.n === 1 || sp.type === "FP" || sp.part !== "run")
+          text(ctx, String(sp.n), nx, ny, { size: 10, weight: 600, color: TH.ink2, align: "center" });
         if (!SYS.showR) return;
         var r = 2.5 + 4.5 * sp.Rv / maxRv;
         var cx = sp.ax === "x" ? px : px - pw - 10, cy = sp.ax === "x" ? py + pw / 2 + 12 : py;
@@ -2713,7 +2754,7 @@ var KP1Phys = (function () {
         var x0 = X(fc.x), y0 = Y(fc.y) - (fc.y > 0 ? 0 : pw / 2 + 22);
         if (fc.y > 0) x0 -= pw / 2 + 22;
         arrow(ctx, x0, y0, x0 + ux * L, y0 - uy * L, TH.force, 2.6, 9);
-        text(ctx, (FPNAME[fc.name] || fc.name) + ": " + kN(fc.F, 3), x0, y0 - 12,
+        text(ctx, (FPNAME[fc.name] || fc.name) + ": " + kN(fc.F, 3) + (SYS.scheme === "both" ? " (ja noturētu)" : ""), x0, y0 - 12,
              { size: 11, weight: 700, color: TH.force, align: ux < 0 ? "right" : "left" });
       });
       M.moves.forEach(function (mv) {
@@ -2733,7 +2774,7 @@ var KP1Phys = (function () {
         warnSym(ctx, X(-0.8), Y(0) + 2, 10);
         text(ctx, "iekārta!", X(-0.8), Y(-0.6) + 12, { size: 12, weight: 700, color: TH.bad, align: "center" });
       }
-      var leg = "⊙ R_{v} — balsts nes caurules svaru · → berze μR_{v} pret kustību · zils — kustība ×" + SYS.exag;
+      var leg = "⊙ R_{v} — balsts nes caurules svaru · → berze μR_{v} pret kustību · zils — kustība ×" + exagFor(1500);
       if (w < 640) leg = "⊙ R_{v} · → berze μR_{v} · zils — kustība";
       text(ctx, leg, 12, h - 12, { size: 11, color: TH.ink2, halo: false });
     }
@@ -2758,11 +2799,14 @@ var KP1Phys = (function () {
       var maxF = Math.max.apply(null, S.fps.map(function (fp) { return fp.F; }).concat([0]));
       if (SYS.scheme === "both") {
         var bucks = dTc > R.dTcr;
-        rows.push(["<i>N</i> = <i>EAα</i>Δ<i>T</i>", kN(S.N) + "<br>" + chip(S.N <= C.FRd)],
-                  ["Δ<i>T</i><sub>cr</sub> (<i>s</i><sub>0</sub> = " + fmt(SYS.s0, 1) + " m)", fmt(R.dTcr, 0) + NB + "K"],
-                  ["caurule", bucks ? '<span class="st bad">izlocījusies</span>' : '<span class="st ok">taisna</span>']);
-        desc = "<b>FP abos galos.</b> Caurule nevar pagarināties, tāpēc tā spiež abus fiksētos punktus. Spēks aug ar katru grādu un nav atkarīgs no garuma. " +
-          (bucks ? "Virs Δ<i>T</i><sub>cr</sub> ≈ " + fmt(R.dTcr, 0) + " K caurule izlokās sāņus starp apskavām." : "Kamēr Δ<i>T</i> < " + fmt(R.dTcr, 0) + " K, caurule starp apskavām vēl ir taisna.");
+        var gives = dTc > R.dTatFRd;
+        rows.push(["<i>N</i> = <i>EAα</i>Δ<i>T</i> — " + HYP_SHORT, kN(S.N)],
+                  ["apskava padodas pie Δ<i>T</i><sub>FP</sub> = <i>F</i><sub>Rd</sub>/(<i>EAα</i>)", fmt(R.dTatFRd, 1) + NB + "K<br>" + chip(!gives, "notur", "padevusies")],
+                  ["caurule izlokās pie Δ<i>T</i><sub>cr</sub> (<i>s</i><sub>0</sub> = " + fmt(SYS.s0, 1) + " m)", fmt(R.dTcr, 0) + NB + "K<br>" +
+                    (bucks ? '<span class="st bad">izlocījusies</span>' : '<span class="st ok">taisna</span>')]);
+        desc = "<b>FP abos galos.</b> Caurule nevar pagarināties un spiež abus fiksētos punktus. Spēks <i>N</i> = " + kN(S.N) +
+          " rastos tikai tad, " + HYP + " — tas ir salīdzinājumam. Īstā caurule tik tālu netiek: apskava padodas jau pie Δ<i>T</i> ≈ " +
+          fmt(R.dTatFRd, 1) + " K, un caurule izlokās starp apskavām pie Δ<i>T</i><sub>cr</sub> ≈ " + fmt(R.dTcr, 0) + " K.";
       } else if (SYS.scheme === "L" || SYS.scheme === "mid") {
         var mid = SYS.scheme === "mid";
         var tip = mid ? S.deltaB / 2 : S.deltaB;
@@ -2783,11 +2827,13 @@ var KP1Phys = (function () {
         desc = "<b>FP pie A un B, U cilpa.</b> Abas puses slīd uz cilpu, cilpa saspiežas, stūris B nekustas. Dziļāka cilpa — mazāks spriegums, bet tai jāietilpst koridorā (" +
           fmt(C.HMax / 1000, 1) + " m). Vajag <i>H</i> ≥ " + m2(R.HminU) + ".";
       }
-      S.fps.forEach(function (fp) { rows.push([FPNAME[fp.name], kN(fp.F, 3) + "<br>" + chip(fp.F <= C.FRd)]); });
+      S.fps.forEach(function (fp) {
+        rows.push([FPNAME[fp.name] + (SYS.scheme === "both" ? " (ja noturētu)" : ""), kN(fp.F, 3) + "<br>" + chip(fp.F <= C.FRd)]);
+      });
       setRO($("h1-ro"), rows);
       $("h1-desc").innerHTML = desc;
       var ratio = maxF / C.FRd;
-      gauge($("h1-gauge"), ratio, ratio > 1.5 ? "×" + sig(ratio, 2) + " par daudz" : fmt(ratio, 2));
+      gauge($("h1-gauge"), ratio, ratio > 1.5 ? "×" + sig(ratio, 2) + (SYS.scheme === "both" ? " (ja noturētu)" : " par daudz") : fmt(ratio, 2));
       $("h1-cap").innerHTML = heating()
         ? "<b>Sildot</b> caurule slīd prom no fiksētā punkta; katrs slīdbalsts to bremzē ar berzi <i>μR</i><sub>v</sub> (sarkanās bultas pret kustību)."
         : "<b>Atdziestot</b> caurule slīd atpakaļ uz fiksēto punktu, un <b>berze maina virzienu</b>: tagad balsti velk cauruli prom, un fiksētā punkta berzes daļa maina zīmi — spiede kļūst par stiepi.";
@@ -2803,7 +2849,8 @@ var KP1Phys = (function () {
       var foot = "<tfoot><tr><td colspan=\"3\">Σ visi balsti</td><td>" + sig(S.sumRv, 4) + "</td><td>" +
                  fmt(S.sumRx, 0) + " (x) " + fmt(S.sumRy, 0) + " (y)</td></tr></tfoot>";
       $("h1-table").innerHTML = '<caption id="h1-table-cap" class="sr">Balstu reakciju tabula</caption>' + head + "<tbody>" + body + "</tbody>" + foot;
-      $("h1-table-note").innerHTML = "· Σ<i>R</i><sub>v</sub> = <i>q</i>·<i>L</i> = " + sig(S.q, 3) + " N/m × " + fmt(S.length, 2) + " m = " + sig(S.qL, 4) +
+      $("h1-table-note").innerHTML = (SYS.scheme === "both" ? "· FP spēki 1. shēmā ir hipotētiski — " + HYP + " " : "") +
+        "· Σ<i>R</i><sub>v</sub> = <i>q</i>·<i>L</i> = " + sig(S.q, 3) + " N/m × " + fmt(S.length, 2) + " m = " + sig(S.qL, 4) +
         " N · berze kopā " + signed(S.friction.x, 3) + " N (x)" + (Math.abs(S.friction.y) > 0.05 ? ", " + signed(S.friction.y, 3) + " N (y)" : "") +
         " · fiksētie punkti " + signed(fx, 3) + " N (x)" + (Math.abs(fy) > 0.05 ? ", " + signed(fy, 3) + " N (y)" : "") + " → kopā 0";
     }
@@ -2999,7 +3046,8 @@ var KP1Phys = (function () {
   // 3. Restrained bar — the spring analogy
   // ======================================================================
   function initRestr() {
-    var EX = 120;
+    var EX = 150;
+    var HYP3 = "ja caurule paliktu taisna un FP noturētu";
     function spring(ctx, xa, xb, y, n, amp, col) {
       ctx.beginPath();
       ctx.moveTo(xa, y);
@@ -3013,8 +3061,9 @@ var KP1Phys = (function () {
     function draw(ctx, w, h) {
       var f = SYS.t, dTc = f * R.dT, Lloc = SYS.L1, L = Lloc * 1000;
       var narrow = w < 640;
-      var x0 = 46, Lmax = 60, pw = 18;
-      var Lpx = (w - (narrow ? 84 : 150)) * Lloc / Lmax;
+      var x0 = 46, Lmax = 100, pw = 18;
+      // the bar plus its exaggerated growth must fit even at L1 = 100 m and the hottest ΔT
+      var Lpx = (w - (narrow ? 60 : 110)) / (1 + C.alpha * 105 * EX) * Lloc / Lmax;
       var ext = Lpx * C.alpha * dTc * EX;
       var N = R.EA * C.alpha * dTc;
       var nC = Math.max(4, Math.round(Lloc / 2));
@@ -3037,7 +3086,7 @@ var KP1Phys = (function () {
       spring(ctx, x0 + 2, x0 + Lpx - 2, y2, nC, pw * 0.26, TH.pipeEdge);
       fpSym(ctx, x0, y2, pw, 0);
       fpSym(ctx, x0 + Lpx, y2, pw, 0);
-      var La = N > 1 ? Math.min(narrow ? Lpx * 0.3 : 78, 18 + 10 * Math.sqrt(N / C.FRd)) : 0;
+      var La = N > 1 ? Math.min(Lpx * 0.3, 78, 18 + 10 * Math.sqrt(N / C.FRd)) : 0;
       if (La > 0) {
         arrow(ctx, x0 + 12, y2 - pw / 2 - 8, x0 + 12 + La, y2 - pw / 2 - 8, TH.force, 2.6, 10);
         arrow(ctx, x0 + Lpx - 12, y2 - pw / 2 - 8, x0 + Lpx - 12 - La, y2 - pw / 2 - 8, TH.force, 2.6, 10);
@@ -3067,14 +3116,18 @@ var KP1Phys = (function () {
       setRO($("x3-ro"), [
         ["Δ<i>L</i>, ko aizliedz", mm(C.alpha * L * dTc)],
         ["uz katru metru", fmt(C.alpha * dTc * 1000, 2) + NB + "mm/m"],
-        ["<i>N</i> (spiede)", kN(N)],
-        ["<i>σ</i> = <i>Eα</i>Δ<i>T</i>", MPa(sg)]
+        ["<i>N</i> (spiede), ja FP noturētu", kN(N)],
+        ["<i>σ</i> = <i>Eα</i>Δ<i>T</i>, ja FP noturētu", MPa(sg)]
       ]);
       gauge($("x3-g1"), sg / C.fy, fmt(sg / C.fy, 2));
       var rN = N / C.FRd;
       gauge($("x3-g2"), rN, rN > 1.5 ? "×" + sig(rN, 2) : fmt(rN, 2));
-      $("x3-note2").innerHTML = "Pilnā temperatūrā spriegums ir " + fmt(R.yieldRatio * 100, 0) + " % no <i>f</i><sub>y</sub>, bet spēks uz FP ir " +
-        sig(R.anchorRatio, 2) + " reizes lielāks par <i>F</i><sub>Rd</sub> = 5 kN. Apskavas robežu sasniedz jau pie Δ<i>T</i> ≈ " + fmt(R.dTatFRd, 1) + " K.";
+      $("x3-note2").innerHTML = "Ja caurule paliktu taisna un FP noturētu, pilnā temperatūrā spriegums būtu " + fmt(R.yieldRatio * 100, 0) +
+        " % no <i>f</i><sub>y</sub>, bet spēks uz FP — " + sig(R.anchorRatio, 2) + " reizes lielāks par <i>F</i><sub>Rd</sub> = 5 kN.";
+      $("x3-real").innerHTML = "<b>Ko dara īstā caurule?</b> <i>N</i> = <i>EAα</i>Δ<i>T</i> ir spēks, kas rastos, " + HYP3 +
+        " — tas ir salīdzinājumam. Īstenībā tik liels spēks nerodas: apskava padodas jau pie Δ<i>T</i><sub>FP</sub> = " +
+        "<i>F</i><sub>Rd</sub>/(<i>EAα</i>) ≈ " + fmt(R.dTatFRd, 1) + " K, un caurule starp apskavām izlokās pie Δ<i>T</i><sub>cr</sub> ≈ " +
+        fmt(R.dTcr, 0) + " K (4. sadaļa).";
       $("x3-hoop").innerHTML = "<b>Salīdzinājumam — spiediens.</b> Iekšējais spiediens 6 bar stiepj sieniņu pa apkārtmēru ar " +
         "<i>σ</i><sub>h</sub> = <i>pD</i>/(2<i>t</i>) = " + MPa(R.sigmaH, 2) + " — " + sig(R.sigma / R.sigmaH, 2) +
         " reizes mazāk nekā termiskais <i>σ</i>. Tāpēc sieniņas biezumu ņem no kataloga, bet balstus un fiksētos punktus rēķina.";
@@ -3102,7 +3155,7 @@ var KP1Phys = (function () {
       // ---- span panel (plan) ----
       var k = (P1.w - 70) / 6.5;              // px per metre
       var span = s0 * k, xL = P1.x + (P1.w - span) / 2, xR = xL + span, y = P1.y + P1.h / 2 - 6, pw = 14;
-      text(ctx, "Skats no augšas · izliece palielināta ×" + EXB, P1.x + 14, P1.y + 18, { size: 12, color: TH.ink2, halo: false });
+      text(ctx, "Skats no augšas · izlocīšanās forma — idealizēta ilustrācija, ×" + EXB, P1.x + 14, P1.y + 18, { size: 12, color: TH.ink2, halo: false });
       var stub = Math.min(42, xL - P1.x - 6);
       [xL, xR].forEach(function (x) { planSupport(ctx, x, y, pw, "gd", 0, 0, true); });
       var pts = [{ x: xL - stub, y: y }];
@@ -3173,10 +3226,12 @@ var KP1Phys = (function () {
         ["Δ<i>T</i><sub>cr</sub>", fmt(dTcr, 0) + NB + "K"],
         ["<i>s</i><sub>cr</sub> pie šī Δ<i>T</i>", isFinite(scr) ? m2(scr) : "—"],
         ["<i>i</i> = √(<i>I</i>/<i>A</i>)", mm(R.i)],
-        ["sānu izliece", amp > 0 ? mm(amp, 2) : "0"]
+        ["izlocīšanās amplitūda (idealizēti)", amp > 0 ? mm(amp, 2) : "0"]
       ]);
       $("x4-v").innerHTML = amp > 0
-        ? '<span class="st bad">izlocījusies</span> Spēks vairs neaug virs <i>N</i><sub>cr</sub> ≈ ' + kN(Ncr) + ", bet caurule ir līka. Lai to novērstu, apskavas jāliek tuvāk par " + (isFinite(scr) ? m2(scr) : "—") + "."
+        ? '<span class="st bad">izlocījusies</span> Virs Δ<i>T</i><sub>cr</sub> taisna stieņa modelis vairs neder. Idealizētā modelī spēks paliek ap <i>N</i><sub>cr</sub> ≈ ' +
+          kN(Ncr) + ", un caurule ir izlocījusies; attēlā forma un amplitūda ir ilustrācija, nevis aprēķins. Lai to novērstu, apskavas jāliek tuvāk par " +
+          (isFinite(scr) ? m2(scr) : "—") + "."
         : '<span class="st ok">taisna</span> <i>N</i> = ' + kN(N) + " vēl ir mazāks par <i>N</i><sub>cr</sub> = " + kN(Ncr) + ".";
       $("x4-note3").innerHTML = "Pie apskavu soļa <i>s</i><sub>0</sub> = " + fmt(SYS.s0, 1) + " m caurule izlokās jau pie Δ<i>T</i> ≈ " + fmt(R.dTcr, 0) +
         " K — bet darbā Δ<i>T</i> = " + fmt(R.dT, 0) + " K.";
@@ -3296,17 +3351,17 @@ var KP1Phys = (function () {
       var sM = SYS.s;
       var specs = [
         { f: function (sv) { return P.span(R.q, sv * 1000, R).delta; }, lim: C.deltaLim, y1: 7.5, yt: [0, 2.5, 5, 7.5],
-          lab: "izliece δ, mm", limLab: "δ_{lim} = 2,5 mm", sx: R.sDelta / 1000, sxLab: "s_{δ}", col: TH.move },
+          lab: "izliece δ, mm", limLab: "δ_{lim} = 2,5 mm (pieņemts)", sx: R.sDelta / 1000, sxLab: "s_{δ}", col: TH.move },
         { f: function (sv) { return P.span(R.q, sv * 1000, R).sigma; }, lim: C.sigmaBLim, y1: 48, yt: [0, 16, 32, 48],
-          lab: "lieces spriegums σ_{b}, MPa", limLab: "σ_{b,lim} = 16 MPa", sx: R.sSigma / 1000, sxLab: "s_{σ}", col: TH.force }
+          lab: "lieces spriegums σ_{b}, MPa", limLab: "σ_{b,lim} = 16 MPa (pieņemts)", sx: R.sSigma / 1000, sxLab: "s_{σ}", col: TH.force }
       ];
       specs.forEach(function (sp, j) {
         var box = boxes[j];
-        var ch = Chart(ctx, box, { x0: 2, x1: 6, y0: 0, y1: sp.y1 });
+        var ch = Chart(ctx, box, { x0: 2, x1: 9, y0: 0, y1: sp.y1 });
         // chosen spacing band
         ctx.fillStyle = alpha(TH.accent, 0.12);
         ctx.fillRect(ch.X(R.s / 1000) - 3, box.y, 6, box.h);
-        ch.frame([2, 3, 4, 5, 6], sp.yt, function (v) { return fmt(v, 0); }, function (v) { return fmt(v, sp.y1 < 10 ? 1 : 0); }, "s, m", sp.lab);
+        ch.frame([2, 3, 4, 5, 6, 7, 8, 9], sp.yt, function (v) { return fmt(v, 0); }, function (v) { return fmt(v, sp.y1 < 10 ? 1 : 0); }, "s, m", sp.lab);
         C.spacings.forEach(function (c) {
           var X = ch.X(c / 1000);
           line(ctx, X, box.y + box.h, X, box.y + box.h + 5, c === R.s ? TH.accent : TH.ink3, c === R.s ? 2.5 : 1);
@@ -3314,7 +3369,7 @@ var KP1Phys = (function () {
         ch.hline(sp.lim, TH.ink, 1.3, [6, 4]);
         text(ctx, sp.limLab, box.x + 6, ch.Y(sp.lim) - 10, { size: 11, color: TH.ink });
         ch.curve(sp.f, sp.col, 2.4);
-        if (sp.sx > 2 && sp.sx < 6) {
+        if (sp.sx > 2 && sp.sx < 9) {
           ch.vline(sp.sx, sp.col, 1, [3, 3]);
           text(ctx, sp.sxLab + " = " + fmt(sp.sx, 2), ch.X(sp.sx) + 4, box.y + 12, { size: 11, color: sp.col });
         }
@@ -3342,7 +3397,8 @@ var KP1Phys = (function () {
       ]);
       var pockets = sp.slope > fall;
       $("x5-v").innerHTML = (okD && okS ? '<span class="st ok">der</span> ' : '<span class="st bad">neder</span> ') +
-        "<i>δ</i> = " + mm(sp.delta) + (okD ? " ≤ " : " &gt; ") + "2,5 mm, <i>σ</i><sub>b</sub> = " + MPa(sp.sigma) + (okS ? " ≤ " : " &gt; ") + "16 MPa. " +
+        "<i>δ</i> = " + mm(sp.delta) + (okD ? " ≤ " : " &gt; ") + "2,5 mm, <i>σ</i><sub>b</sub> = " + MPa(sp.sigma) + (okS ? " ≤ " : " &gt; ") +
+        "16 MPa (šajā projektā pieņemtās robežas). " +
         (pockets ? "Ieliekuma slīpums " + fmt(sp.slope, 4) + " &gt; kritums " + fmt(fall, 4) + " — <b>rodas kabatas</b>."
                  : "Ieliekuma slīpums " + fmt(sp.slope, 4) + " ≤ kritums " + fmt(fall, 4) + " — kabatu nav.") +
         " Izvēlas <b>" + m1(R.s) + "</b> — lielāko soli, kas iztur abus (<i>s</i><sub>δ</sub> ir " +
@@ -3377,7 +3433,7 @@ var KP1Phys = (function () {
         line(ctx, X, yP - pw / 2 + 2, X, yP + pw / 2 - 2, TH.pipeEdge, 2);
       });
       // friction on the pipe at each support: against the motion
-      var Fmax = 0.4 * R.q * 6;           // largest possible μR (μ 0,4, s 6 m) for scaling
+      var Fmax = 0.4 * R.q * 9;           // largest possible μR (μ 0,4, s 9 m) for scaling
       if (f > 0.005) st.supports.forEach(function (sp) {
         var X = xA + sp.x * kx + u(sp.x);
         var L = 6 + 30 * sp.F / Fmax;
@@ -3467,7 +3523,7 @@ var KP1Phys = (function () {
       var wide = w >= 760;
       var P1 = wide ? { x: 0, y: 0, w: w * 0.56, h: h } : { x: 0, y: 0, w: w, h: h - 300 };
       var P2 = wide ? { x: w * 0.56, y: 0, w: w * 0.44, h: h } : { x: 0, y: h - 300, w: w, h: 300 };
-      var f = SYS.t, dTc = f * R.dT, H = SYS.L2, mode = SYS.legEnd, exag = SYS.exag;
+      var f = SYS.t, dTc = f * R.dT, H = SYS.L2, mode = SYS.legEnd, exag = exagFor(1200);
       var delta = C.alpha * R.L1 * dTc, Hm = H * 1000;
       var res = legRes(delta, Hm);
       var sRat = res.sigma / C.sigmaAllow;
@@ -3632,8 +3688,12 @@ var KP1Phys = (function () {
         ["<i>M</i><sub>max</sub>", fmt(res.M / 1e6, 2) + NB + "kN·m"],
         ["<i>σ</i> = <i>M</i>/<i>W</i>", MPa(res.sigma)],
         ["<i>σ</i> / <i>σ</i><sub>allow</sub>", fmt(res.sigma / C.sigmaAllow, 2)],
-        ["<i>H</i><sub>min,L</sub>", m2(R.HminL)]
+        ["<i>H</i><sub>min,L</sub>", m2(R.HminL)],
+        ["kājas pagarinājums <i>α</i>·<i>L</i><sub>2</sub>·Δ<i>T</i> (neievēro)", mm(C.alpha * R.L2 * dTc, 2)]
       ]);
+      $("x7-leg").innerHTML = "<b>Ko šeit neievēro.</b> Arī pati kāja BC sasilst un pagarinās pa savu asi par <i>α</i>·<i>L</i><sub>2</sub>·Δ<i>T</i> = " +
+        mm(C.alpha * R.L2 * R.dT, 2) + ". Tas nedaudz pabīda stūri B sāņus — perpendikulāri posmam A–B; to uzņem posma A–B gals. " +
+        "Tas ir daudz mazāk par <i>δ</i><sub>B</sub> = " + mm(R.deltaB) + " (" + fmt(R.L2 / R.L1 * 100, 0) + " %), tāpēc L līkuma aprēķinā to neievēro.";
       var free = P.freeTip(R.EI, R.W, delta, Hm), gd = P.guided(R.EI, R.W, delta, Hm);
       $("x7-v").innerHTML = (ok ? '<span class="st ok">der</span> ' : '<span class="st bad">neder</span> ') +
         (mode === "guided"
@@ -3660,7 +3720,7 @@ var KP1Phys = (function () {
     var TITLES = ["(a) FP pie A", "(b) FP posma vidū", "(c) FP pie A un B, cilpa vidū"];
     function drawPanel(ctx, w, h, idx) {
       var f = SYS.t, sc = SCH[idx];
-      var M = routeModel({ scheme: sc, exag: SYS.exag, LV: LV, KY: KY, KYL: KY, loopWv: 1.7, rb: 0.3 });
+      var M = routeModel({ scheme: sc, exag: exagFor(1100), LV: LV, KY: KY, KYL: KY, loopWv: 1.7, rb: 0.3 });
       var DV = Math.max(SYS.H, C.HMax / 1000) * KY;
       var bx0 = -1.6, bx1 = LV + 1.3, by0 = -(DV + 0.45), by1 = M.HV + 0.6;
       var k = Math.min((w - 24) / (bx1 - bx0), (h - 50) / (by1 - by0));
@@ -3738,7 +3798,7 @@ var KP1Phys = (function () {
   function initLoop() {
     function hOver(w) { return w < 640 ? 140 : 160; }
     function draw(ctx, w, h) {
-      var f = SYS.t, H = SYS.H, pos = SYS.loopPos, EXG = Math.round(SYS.exag * 2 / 3);
+      var f = SYS.t, H = SYS.H, pos = SYS.loopPos, EXG = Math.max(1, Math.round(exagFor(1800) * 2 / 3));
       var dTc = f * R.dT, delta = C.alpha * R.L1 * dTc, Hm = H * 1000;
       var gu = P.guided(R.EI, R.W, delta / 2, Hm);
       var sU = gu.sigma / C.sigmaAllow;
@@ -3904,10 +3964,10 @@ var KP1Phys = (function () {
     function items(f) {
       var dTc = f * R.dT, mov = f > 0 ? 1 : 0;
       return [
-        { name: "FP abos galos", F: R.EA * C.alpha * dTc },
+        { name: "FP abos galos (ja noturētu)", F: R.EA * C.alpha * dTc },
         { name: "L līkums: F_{μ} + F_{L}", F: R.Fmu * mov + R.FL * f },
         { name: "U cilpa: F_{U} + F_{μ}/2", F: FUat(f) + R.Fmu / 2 * mov },
-        { name: "silfons: F_{p} + F_{μ}/2", F: R.Fp + R.Fmu / 2 * mov }
+        { name: "silfons (vienkāršoti): F_{p} + F_{μ}/2", F: R.Fp + R.Fmu / 2 * mov, est: true }
       ];
     }
     function draw(ctx, w, h) {
@@ -3934,7 +3994,7 @@ var KP1Phys = (function () {
         ctx.fillRect(box.x, yc - bh / 2, Math.max(1, ch.X(Fv) - box.x), bh);
         if (narrow) text(ctx, it.name, box.x, yc - bh / 2 - 10, { size: 12, weight: 600, halo: false });
         else text(ctx, it.name, box.x - 10, yc, { size: 13, weight: 600, align: "right", halo: false });
-        text(ctx, kN(it.F, 3), ch.X(Fv) + 6, yc, { size: 12, mono: true, weight: 600, color: ok ? TH.ok : TH.bad });
+        text(ctx, (it.est ? "≈ " : "") + kN(it.F, 3), ch.X(Fv) + 6, yc, { size: 12, mono: true, weight: 600, color: ok ? TH.ok : TH.bad });
       });
     }
     var fig = Fig($("c-fpbar"), function (w) { return w < 640 ? 330 : 270; }, draw);
@@ -3943,14 +4003,17 @@ var KP1Phys = (function () {
       var dn100 = P.PIPES[3];
       var Fp100 = C.p * Math.PI * dn100.D * dn100.D / 4;
       var sent = [
-        "<b>FP abos galos: " + kN(its[0].F) + "</b> — " + (its[0].F > C.FRd ? sig(its[0].F / C.FRd, 2) + " reizes vairāk, nekā apskava notur." : "vēl zem apskavas robežas (tikai dažu grādu sasilšana).") +
-          " Turklāt caurule izlokās.",
+        "<b>FP abos galos: " + kN(its[0].F) + "</b> — tik liels spēks rastos tikai tad, ja caurule paliktu taisna un FP noturētu (salīdzinājumam). " +
+          (its[0].F > C.FRd ? "Tas ir " + sig(its[0].F / C.FRd, 2) + " reizes vairāk, nekā apskava notur. " : "") +
+          "Īstenībā apskava padodas jau pie Δ<i>T</i> ≈ " + fmt(R.dTatFRd, 1) + " K, un caurule izlokās pie Δ<i>T</i><sub>cr</sub> ≈ " + fmt(R.dTcr, 0) + " K.",
         "<b>L līkums: " + kN(R.Fmu * mov, 3) + " + " + kN(R.FL * f, 3) + " = " + kN(its[1].F, 3) + "</b> — " +
           (its[1].F > C.FRd ? "virs <i>F</i><sub>Rd</sub>; un kāja ir pārslogota (" + MPa(R.sigmaL * f) + ")." : "zem <i>F</i><sub>Rd</sub>, bet kājā " + MPa(R.sigmaL * f) + "."),
         "<b>U cilpa (<i>H</i> = " + fmt(SYS.H, 1) + " m): " + kN(FUat(f), 3) + " + " + kN(R.Fmu / 2 * mov, 3) + " = " + kN(its[2].F, 3) + "</b> — " +
           (its[2].F <= C.FRd ? "der ar rezervi; cilpa ir mīksta atspere." : "virs <i>F</i><sub>Rd</sub>."),
-        "<b>Silfons: " + kN(R.Fp, 3) + " + " + kN(R.Fmu / 2 * mov, 3) + " = " + kN(its[3].F, 3) + "</b> — spiediena spēks ir vienmēr, arī aukstā caurulē; " +
-          "DN100 pie 6 bar tas vien ir " + kN(Fp100, 2) + ". Vajag aprēķinātas vadotnes."
+        "<b>Silfons (vienkāršoti): " + kN(R.Fp, 3) + " + " + kN(R.Fmu / 2 * mov, 3) + " ≈ " + kN(its[3].F, 3) + "</b> — " +
+          (its[3].F <= C.FRd ? "der pēc vienkāršotā aprēķina. " : "neder jau pēc vienkāršotā aprēķina. ") +
+          "Spiediena spēks ir vienmēr, arī aukstā caurulē; DN100 pie 6 bar tas vien ir ≈ " + kN(Fp100, 2) +
+          ". Īstam silfonam efektīvais laukums ir lielāks par caurules ārējo, un klāt nāk tā atsperes spēks. Vajag aprēķinātas vadotnes."
       ];
       $("x10-list").innerHTML = sent.map(function (s, i) {
         return '<li class="' + (its[i].F <= C.FRd ? "ok" : "bad") + '">' + s + "</li>";
@@ -3995,22 +4058,22 @@ var KP1Phys = (function () {
     { q: "Kāpēc balstu soli nosaka izliece, nevis spriegums?",
       o: ["Spriegumu nevar aprēķināt bez datora.",
           "Ūdens neietekmē spriegumu, tikai izlieci.",
-          "Izliece aug ar <i>s</i><sup>4</sup>, spriegums ar <i>s</i><sup>2</sup>; pie robežām 2,5 mm un 16 MPa izliece robežu sasniedz nedaudz agrāk."],
+          "Izliece aug ar <i>s</i><sup>4</sup>, spriegums ar <i>s</i><sup>2</sup>; pie šajā projektā pieņemtajām robežām 2,5 mm un 16 MPa izliece robežu sasniedz nedaudz agrāk."],
       a: 2,
-      e: "Šīm caurulēm <i>s</i><sub>δ</sub> ir dažus procentus mazāks par <i>s</i><sub>σ</sub>. Stingrā izlieces robeža ir vajadzīga, lai caurule ar kritumu iztukšotos un atgaisotos — bez ūdens un gaisa kabatām." },
+      e: "Šīm caurulēm <i>s</i><sub>δ</sub> ir dažus procentus mazāks par <i>s</i><sub>σ</sub>. Robežas 2,5 mm un 16 MPa ir šajā projektā pieņemtas (no balstu tabulām). Lai caurule ar kritumu <i>i</i> iztukšotos un atgaisotos bez kabatām, svarīgs ir nosacījums 3,2·<i>δ</i>/<i>s</i> ≤ <i>i</i>." },
     { q: "Ko dara vadotnes abās pusēs cilpai?",
-      o: ["Tur cauruli sāniski un ļauj tai slīdēt gar asi, lai spiestā caurule neizliektos un spiestu taisni cilpā.",
+      o: ["Tur cauruli sāniski un ļauj tai slīdēt gar asi, lai spiestā caurule neizlocītos un spiestu taisni cilpā.",
           "Aptur kustību tāpat kā fiksētais punkts.",
           "Nes tikai svaru; sāniski tās ir brīvas."],
       a: 0,
       e: "Ar cilpu posms ir spiests (cilpas spēks un berze). Vadotne ir slīdbalsts ar sānu atdurēm: gar asi brīvs, sāniski tur. Tā neļauj caurulei izlocīties un cilpai saliekties nepareizā virzienā." },
     { q: "Kāpēc aksiālais silfona kompensators noslogo fiksēto punktu vairāk nekā U cilpa?",
       o: ["Silfons ir smagāks par cilpu.",
-          "Iekšējais spiediens grib silfonu izstiept un spiež fiksētos punktus ar <i>p</i>·π<i>D</i>²/4 — kilonewtonos, krietni vairāk par cilpas spēku.",
+          "Iekšējais spiediens grib silfonu izstiept un spiež fiksētos punktus ar <i>p</i>·π<i>D</i>²/4 — kiloņūtonos, krietni vairāk par cilpas spēku.",
           "Silfons ir no plāna metāla, tāpēc tas ir stingrāks."],
       a: 1,
-      e: "Cilpa ir mīksta atspere — tās spēks ir simtos ņūtonu. Silfons ir „caurums“ caurulē gar asi: spiediens uz tā laukumu darbojas kā virzulis. DN100 pie 6 bar tas ir ap 5,5 kN — tikpat, cik apskava notur." },
-    { q: "Kāpēc pieļaujamais termiskais spriegums ir tikai 80 MPa, lai gan tēraudam <i>f</i><sub>y</sub> = 235 MPa?",
+      e: "Cilpa ir mīksta atspere — tās spēks ir simtos ņūtonu. Silfons ir „caurums“ caurulē gar asi: spiediens uz tā laukumu darbojas kā virzulis. Pēc vienkāršotā novērtējuma (caurules ārējais laukums) DN100 pie 6 bar tas ir ap 5,5 kN — tikpat, cik apskava notur; īstam silfonam efektīvais laukums ir lielāks, un klāt nāk atsperes spēks." },
+    { q: "Kāpēc šajā projektā pieņemtā termiskā sprieguma robeža ir tikai 80 MPa, lai gan tēraudam <i>f</i><sub>y</sub> = 235 MPa?",
       o: ["Karstam tēraudam tecēšanas robeža ir 80 MPa.",
           "Tā ir ražotāja garantijas prasība.",
           "Termiskā kustība atkārtojas katrā sildīšanas reizē (nogurums), un metinātos līkumos spriegums ir 2–3 reizes lielāks, nekā taisnas sijas formula rāda."],
@@ -4062,7 +4125,8 @@ var KP1Phys = (function () {
       ["grp", "1. daļa — FP abos galos"],
       ["Δ<i>T</i>", fmt(R.dT, 0) + NB + "K"],
       ["Δ<i>L</i>", mm(R.dL)],
-      ["<i>N</i>", kN(R.N)],
+      ["<i>N</i> (ja noturētu)", kN(R.N)],
+      ["Δ<i>T</i><sub>FP</sub>", fmt(R.dTatFRd, 1) + NB + "K"],
       ["<i>σ</i>", MPa(R.sigma)],
       ["<i>N</i><sub>cr</sub> (" + fmt(SYS.s0, 1) + " m)", kN(R.Ncr)],
       ["Δ<i>T</i><sub>cr</sub>", fmt(R.dTcr, 0) + NB + "K"],
@@ -4094,7 +4158,8 @@ var KP1Phys = (function () {
     var rows = [
       ["Shēma", SCHEME_LV[SYS.scheme]],
       ["Tagad", fmtTemp(SYS.t) + (heating() ? " ↑" : " ↓")],
-      ["<i>N</i> (FP abos galos)", kN(N) + chip(N <= C.FRd)],
+      ["<i>N</i>, ja caurule paliktu taisna un FP noturētu", kN(N) + chip(N <= C.FRd)],
+      ["apskava padodas / izlokās pie Δ<i>T</i>", fmt(R.dTatFRd, 1) + " / " + fmt(R.dTcr, 0) + NB + "K"],
       ["<i>F<sub>μ</sub></i> = <i>μqL</i><sub>1</sub>", kN(R.Fmu)],
       ["<i>δ</i><sub>B</sub>", mm(d)],
       ["<i>σ</i><sub>L</sub> kājā", MPa(sL) + chip(sL <= C.sigmaAllow)],
@@ -4228,7 +4293,11 @@ var KP1Phys = (function () {
   }
   if (location.hash) {
     requestAnimationFrame(goToHash);
-    window.addEventListener("load", function () { requestAnimationFrame(goToHash); });
+    window.addEventListener("load", function () {
+      requestAnimationFrame(goToHash);
+      // figures that size themselves when first seen can still shift the page
+      [300, 900, 1800].forEach(function (ms) { setTimeout(goToHash, ms); });
+    });
   }
 })();
 </script>
