@@ -1117,6 +1117,9 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
   </div>
   <div class="sys-body">
     <dl class="sys-res" id="sys-res"></dl>
+    <div class="sys-grp"><h3>4.1 lapai — rokas formulas, pilna Δ<i>T</i></h3>
+      <dl class="sys-res" id="sys-sheet"></dl>
+    </div>
     <div class="sys-grp"><h3>Caurule</h3>
       <div class="ctl"><label for="sys-pipe">Caurule (D × t)</label><span class="out"></span>
         <select id="sys-pipe">
@@ -1258,6 +1261,16 @@ var KP1Phys = (function () {
     var delta = 5 * qn * Math.pow(s, 4) / (384 * E * sec.I);
     return { s: s, M: M, sigma: M / sec.W, delta: delta, R: qn * s,
              slope: C.slopeFactor * delta / s };
+  }
+
+  // The ten results of the "kas būtu, ja" worksheet (deliverable 4.1), in its order:
+  // hand formulas at full ΔT, with the spacing s and the loop depth H (m) as pinned.
+  function sheet(inp, sM, HM) {
+    var R = solve(inp);
+    var s = num(sM, R.s / 1000) * 1000, H = num(HM, R.H / 1000) * 1000;
+    var sp = span(R.q, s, { I: R.I, W: R.W }), gu = guided(R.EI, R.W, R.dL / 2, H);
+    return { dL: R.dL, N: R.N, sigma: R.sigma, delta: sp.delta, R: sp.R, Fmu: R.Fmu,
+             FL: R.FL, sigmaL: R.sigmaL, sigmaU: gu.sigma, FB: gu.F + R.Fmu / 2, s: s, H: H };
   }
 
   function limitSpacings(q, sec, E) {
@@ -1576,7 +1589,7 @@ var KP1Phys = (function () {
     section: section, weights: weights, span: span, limitSpacings: limitSpacings,
     chooseSpacing: chooseSpacing, euler: euler, guided: guided, freeTip: freeTip,
     minLeg: minLeg, buckleAmp: buckleAmp, frictionSteps: frictionSteps, solve: solve,
-    supports: supports, loopWidth: loopWidth, GUIDE_GAP: GUIDE_GAP
+    supports: supports, sheet: sheet, loopWidth: loopWidth, GUIDE_GAP: GUIDE_GAP
   };
 })();
 </script>
@@ -4203,22 +4216,47 @@ var KP1Phys = (function () {
     }).join("");
   }
   function updateSys() {
-    var S = SUP(), dTc = S.dT, d = C.alpha * R.L1 * dTc;
-    var sL = P.guided(R.EI, R.W, d, R.L2).sigma, sU = P.guided(R.EI, R.W, d / 2, SYS.H * 1000).sigma;
+    var S = SUP(), dTc = S.dT, d = C.alpha * R.L1 * dTc, sch = SYS.scheme;
     var N = R.EA * C.alpha * dTc;
+    // what the selected scheme does: B moves with FP at A (all of δ) or mid-run (half);
+    // with a fixed point at B it stays put
+    var dB = sch === "L" ? d : sch === "mid" ? d / 2 : 0;
     var rows = [
-      ["Shēma", SCHEME_LV[SYS.scheme]],
+      ["Shēma", SCHEME_LV[sch]],
       ["Tagad", fmtTemp(SYS.t) + (heating() ? " ↑" : " ↓")],
       ["<i>N</i>, ja caurule paliktu taisna un FP noturētu", kN(N) + chip(N <= C.FRd)],
       ["apskava padodas / noturības zudums (ja FP noturētu) pie Δ<i>T</i>", fmt(R.dTatFRd, 1) + " / " + fmt(R.dTcr, 0) + NB + "K"],
-      ["<i>F<sub>μ</sub></i> = <i>μqL</i><sub>1</sub>", kN(R.Fmu)],
-      ["<i>δ</i><sub>B</sub>", mm(d)],
-      ["<i>σ</i><sub>L</sub> kājā", MPa(sL) + chip(sL <= C.sigmaAllow)],
-      ["<i>σ</i><sub>U</sub> cilpā", MPa(sU) + chip(sU <= C.sigmaAllow * 1.0005)]
+      ["stūra B kustība šajā shēmā", dB > 0 ? mm(dB) : "0 — B ir FP"]
     ];
-    S.fps.forEach(function (fp) { rows.push([FPNAME[fp.name], kN(fp.F, 3) + chip(fp.F <= C.FRd)]); });
+    if (sch === "mid") rows.push(["gala A kustība (A ir pieskrūvēts iekārtai)", mm(d / 2) + chip(d === 0)]);
+    if (dB > 0) {
+      var sL = P.guided(R.EI, R.W, dB, R.L2).sigma;
+      rows.push(["<i>σ</i> kājā BC šajā shēmā", MPa(sL) + chip(sL <= C.sigmaAllow * 1.0005)]);
+    }
+    if (sch === "U") {
+      var sU = P.guided(R.EI, R.W, d / 2, SYS.H * 1000).sigma;
+      rows.push(["<i>σ</i><sub>U</sub> cilpā", MPa(sU) + chip(sU <= C.sigmaAllow * 1.0005)]);
+    }
+    S.fps.forEach(function (fp) { rows.push([FPNAME[fp.name] + " (balsti pa vienam)", kN(fp.F, 3) + chip(fp.F <= C.FRd)]); });
     rows.push(["Balsti / Σ<i>R</i><sub>v</sub>", S.count + " / " + sig(S.sumRv, 4) + NB + "N"]);
     $("sys-res").innerHTML = rows.map(function (r) { return "<dt>" + r[0] + "</dt><dd>" + r[1] + "</dd>"; }).join("");
+    // the worksheet block: same rows and order as the printed 4.1 table, any scheme, full ΔT
+    var pp = P.PIPES[SYS.pipe];
+    var W = P.sheet({ D: pp.D, t: pp.t, L1: SYS.L1, L2: SYS.L2, T0: SYS.T0, T: SYS.T, tIns: SYS.tIns, mu: SYS.mu, s0: SYS.s0 },
+                    SYS.s, SYS.H);
+    var sheetRows = [
+      ["Δ<i>L</i> = <i>δ</i><sub>B</sub>", mm(W.dL)],
+      ["|<i>N</i>|", kN(W.N)],
+      ["|<i>σ</i>|", MPa(W.sigma)],
+      ["<i>δ</i> pie <i>s</i> = " + fmt(SYS.s, 2) + NB + "m", mm(W.delta)],
+      ["<i>R</i>", sig(W.R, 3) + NB + "N"],
+      ["<i>F<sub>μ</sub></i> = <i>μqL</i><sub>1</sub>", kN(W.Fmu)],
+      ["<i>F</i><sub>L</sub>", sig(W.FL, 3) + NB + "N"],
+      ["<i>σ</i><sub>L</sub>", MPa(W.sigmaL)],
+      ["<i>σ</i><sub>U</sub> pie <i>H</i> = " + fmt(SYS.H, 1) + NB + "m", MPa(W.sigmaU)],
+      ["<i>F</i><sub>B</sub> = <i>F</i><sub>U</sub> + <i>F<sub>μ</sub></i>/2", kN(W.FB)]
+    ];
+    $("sys-sheet").innerHTML = sheetRows.map(function (r) { return "<dt>" + r[0] + "</dt><dd>" + r[1] + "</dd>"; }).join("");
   }
   function initPanels() {
     var toNum = function (v) { return +v; };
