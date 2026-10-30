@@ -868,20 +868,20 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
     Šo kustību uzņem īsais posms BC — <b>kāja</b>. Tās gals C ir fiksēts pie stāvvada.</p>
     <p>Kāja saliecas kā S burts. Pie C tā ir iespīlēta, un pie B līkums kopā ar tuvo vadotni neļauj tai pagriezties.
     Tādu siju sauc par <b>vadītu konsoli</b>. Tās vidū ir pārliekuma punkts, kur moments ir nulle. Tātad kāju var
-    sadalīt divās parastās konsolēs ar garumu <i>H</i>/2, katrai gala pārvietojums <i>δ</i>/2.</p>
+    sadalīt divās parastās konsolēs ar garumu <i>H</i>/2, katrai gala pārvietojums <i>δ</i><sub>B</sub>/2.</p>
   </div>
   <div class="eq">
-    <div><span class="g"><span class="f"><span><i>δ</i></span><span>2</span></span> = <span class="f"><span><i>F</i> · (<i>H</i>/2)³</span><span>3 · <i>E</i> · <i>I</i></span></span></span><span class="g">⇒</span><span class="g"><i>F</i> = <span class="f"><span>12 · <i>E</i> · <i>I</i> · <i>δ</i></span><span><i>H</i>³</span></span></span></div>
-    <div><span class="g"><i>M</i><sub>max</sub> = <i>F</i> · <span class="f"><span><i>H</i></span><span>2</span></span> = <span class="f"><span>6 · <i>E</i> · <i>I</i> · <i>δ</i></span><span><i>H</i>²</span></span></span><span class="g"><i>σ</i> = <span class="f"><span><i>M</i></span><span><i>W</i></span></span> = <span class="f"><span>3 · <i>E</i> · <i>D</i> · <i>δ</i></span><span><i>H</i>²</span></span></span></div>
-    <div><span class="g"><i>H</i><sub>min,L</sub> = <span class="rt">√<span><span class="f"><span>3 · <i>E</i> · <i>D</i> · <i>δ</i></span><span><i>σ</i><sub>allow</sub></span></span></span></span></span><span class="g n"><span class="note">Šeit <i>H</i> = <i>L</i><sub>2</sub>; <i>σ</i><sub>allow</sub> = 80 MPa ir šajā projektā pieņemts.</span></span></div>
+    <div><span class="g"><span class="f"><span><i>δ</i><sub>B</sub></span><span>2</span></span> = <span class="f"><span><i>F</i> · (<i>H</i>/2)³</span><span>3 · <i>E</i> · <i>I</i></span></span></span><span class="g">⇒</span><span class="g"><i>F</i> = <span class="f"><span>12 · <i>E</i> · <i>I</i> · <i>δ</i><sub>B</sub></span><span><i>H</i>³</span></span></span></div>
+    <div><span class="g"><i>M</i><sub>max</sub> = <i>F</i> · <span class="f"><span><i>H</i></span><span>2</span></span> = <span class="f"><span>6 · <i>E</i> · <i>I</i> · <i>δ</i><sub>B</sub></span><span><i>H</i>²</span></span></span><span class="g"><i>σ</i> = <span class="f"><span><i>M</i></span><span><i>W</i></span></span> = <span class="f"><span>3 · <i>E</i> · <i>D</i> · <i>δ</i><sub>B</sub></span><span><i>H</i>²</span></span></span></div>
+    <div><span class="g"><i>H</i><sub>min,L</sub> = <span class="rt">√<span><span class="f"><span>3 · <i>E</i> · <i>D</i> · <i>δ</i><sub>B</sub></span><span><i>σ</i><sub>allow</sub></span></span></span></span></span><span class="g n"><span class="note">Šeit <i>H</i> = <i>L</i><sub>2</sub>; <i>σ</i><sub>allow</sub> = 80 MPa ir šajā projektā pieņemts.</span></span></div>
   </div>
   <p class="aside" id="x7-leg"></p>
 
   <figure class="fig" id="f-lbend">
     <div class="fig-top">
-      <div class="seg" role="radiogroup" aria-label="Kājas gals pie B">
-        <input type="radio" name="x7-end" id="x7-guided" value="guided" checked><label for="x7-guided">vadīts gals (nepagriežas)</label>
-        <input type="radio" name="x7-end" id="x7-free" value="free"><label for="x7-free">brīvs gals (pagriežas)</label>
+      <div class="seg" role="radiogroup" aria-label="Modelis: kājas gals pie B">
+        <input type="radio" name="x7-end" id="x7-guided" value="guided" checked><label for="x7-guided">vadīts gals — kā īstais līkums</label>
+        <input type="radio" name="x7-end" id="x7-free" value="free"><label for="x7-free">brīvs gals — tikai salīdzinājumam</label>
       </div>
     </div>
     <div class="cv"><canvas id="c-lbend" role="img" aria-label="Skats no augšas uz stūri B: posms no A, stūris, kāja līdz stāvvadam C. Pa labi kāja kā sija ar momentu diagrammu."></canvas></div>
@@ -963,7 +963,7 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
     <a class="tag" href="#uzd-11">Uzdevumā: 11. solis</a></div>
   <div class="prose">
     <p>Cilpa ir caurules „atspere“: taisnajā posmā izveido U formas līkumu. Abas posma puses pagarinās uz cilpu,
-    katra par <i>δ</i>/2. Cilpas kājas saliecas kā divas vadītas konsoles, un šķērsgabals starp tām tikai pārnes
+    katra par <i>δ</i><sub>B</sub>/2. Cilpas kājas saliecas kā divas vadītas konsoles, un šķērsgabals starp tām tikai pārnes
     spēku — tas ir spiests.</p>
     <p>Tā kā katra kāja uzņem tikai pusi kustības, tā var būt √2 reizes īsāka nekā L līkuma kāja. Cilpas vieta
     posmā spriegumu nemaina; tā maina, cik tālu jāslīd garākās puses balstiem un cik berzes saņem katrs FP — garākās
@@ -972,7 +972,7 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
     Spiestai caurulei Eilera garums ir attālums starp vadotnēm — šeit balstu solis <i>s</i>.</p>
   </div>
   <div class="eq">
-    <div><span class="g"><i>F</i><sub>U</sub> = <span class="f"><span>12 · <i>E</i> · <i>I</i> · (<i>δ</i>/2)</span><span><i>H</i>³</span></span> = <span class="f"><span>6 · <i>E</i> · <i>I</i> · <i>δ</i></span><span><i>H</i>³</span></span></span><span class="g"><i>σ</i><sub>U</sub> = <span class="f"><span>3 · <i>E</i> · <i>D</i> · (<i>δ</i>/2)</span><span><i>H</i>²</span></span></span></div>
+    <div><span class="g"><i>F</i><sub>U</sub> = <span class="f"><span>12 · <i>E</i> · <i>I</i> · (<i>δ</i><sub>B</sub>/2)</span><span><i>H</i>³</span></span> = <span class="f"><span>6 · <i>E</i> · <i>I</i> · <i>δ</i><sub>B</sub></span><span><i>H</i>³</span></span></span><span class="g"><i>σ</i><sub>U</sub> = <span class="f"><span>3 · <i>E</i> · <i>D</i> · (<i>δ</i><sub>B</sub>/2)</span><span><i>H</i>²</span></span></span></div>
     <div><span class="g"><i>H</i><sub>min,U</sub> = <span class="f"><span><i>H</i><sub>min,L</sub></span><span>√2</span></span></span><span class="g n"><span class="note"><i>H</i> — noapaļo uz augšu līdz 0,1 m; jāietilpst telpā: <i>H</i> ≤ <i>H</i><sub>max</sub> = 3,0 m</span></span></div>
   </div>
 
@@ -1107,6 +1107,7 @@ body.sys-open .sys { visibility: visible; transform: none; transition: transform
     palielināti. Formulu rezultāti sakrīt ar rokas aprēķinu; sistēmas skatā berzi un FP spēkus skaita pa
     balstiem, tāpēc tie var nedaudz atšķirties no rokas aprēķina (<i>F<sub>μ</sub></i> = <i>μ</i>·<i>q</i>·<i>L</i><sub>1</sub>,
     <i>F</i><sub>A</sub> = <i>F<sub>μ</sub></i> + <i>F</i><sub>L</sub>, <i>F</i><sub>B</sub> = <i>F</i><sub>U</sub> + <i>F<sub>μ</sub></i>/2).</p>
+    <!-- analytics-notice -->
   </div>
 </footer>
 
@@ -1626,6 +1627,29 @@ var KP1Phys = (function () {
     return fmt(x, Math.max(0, n - 1 - e));
   }
   function signed(x, n) { return (x > 0 ? "+" : "") + sig(x, n); }
+  // Usage counter (public copy only, see the init block): once per name per page load.
+  var TRACKED = {}, TRACK_Q = [], trackTries = 0;
+  function track(name) {
+    if (TRACKED[name]) return;
+    TRACKED[name] = true;
+    TRACK_Q.push(name);
+    flushTrack();
+  }
+  function flushTrack() {
+    var gc = window.goatcounter;
+    if (!gc || typeof gc.count !== "function") {
+      // the counter script loads async; wait for it a while, give up if it is blocked
+      if (doc.querySelector("script[data-goatcounter]") && trackTries < 20 && !flushTrack.t) {
+        trackTries++;
+        flushTrack.t = setTimeout(function () { flushTrack.t = 0; flushTrack(); }, 1500);
+      }
+      return;
+    }
+    while (TRACK_Q.length) {
+      var n = TRACK_Q.shift();
+      try { gc.count({ path: n, title: n, event: true }); } catch (e) { /* counting is best effort */ }
+    }
+  }
   function kN(F, n) { return sig(F / 1000, n || 3) + NB + "kN"; }
   function MPa(s, n) { return sig(s, n || 3) + NB + "MPa"; }
   function mm(v, n) { return sig(v, n || 3) + NB + "mm"; }
@@ -2844,7 +2868,7 @@ var KP1Phys = (function () {
         var mid = SYS.scheme === "mid";
         var tip = mid ? S.deltaB / 2 : S.deltaB;
         var gs = P.guided(R.EI, R.W, tip, R.L2);
-        rows.push(["<i>δ</i> stūrī B", mm(tip)], ["<i>σ</i> kājā BC", MPa(gs.sigma) + "<br>" + chip(gs.sigma <= C.sigmaAllow)]);
+        rows.push(["<i>δ</i><sub>B</sub> stūrī", mm(tip)], ["<i>σ</i> kājā BC", MPa(gs.sigma) + "<br>" + chip(gs.sigma <= C.sigmaAllow)]);
         if (mid) rows.push(["A pārvietojas", mm(S.deltaB / 2) + "<br>" + chip(S.deltaB < 0.05, "der", "iekārta!")]);
         desc = mid
           ? "<b>FP posma vidū.</b> Caurule izplešas no vidus uz abām pusēm: stūrī nonāk tikai puse kustības, bet otra puse bīda iekārtu pie A — tā kustēties nedrīkst."
@@ -2853,7 +2877,7 @@ var KP1Phys = (function () {
       } else {
         var gu = P.guided(R.EI, R.W, S.deltaB / 2, SYS.H * 1000);
         var fits = SYS.H <= C.HMax / 1000 + 1e-9;
-        rows.push(["katra puse dod <i>δ</i>/2", mm(S.deltaB / 2)],
+        rows.push(["katra puse dod <i>δ</i><sub>B</sub>/2", mm(S.deltaB / 2)],
                   ["<i>σ</i><sub>U</sub> (<i>H</i> = " + fmt(SYS.H, 1) + " m)", MPa(gu.sigma) + "<br>" + chip(gu.sigma <= C.sigmaAllow * 1.0005)],
                   ["<i>F</i><sub>U</sub>", sig(gu.F, 3) + NB + "N"],
                   ["<i>H</i> / <i>H</i><sub>max</sub>", fmt(SYS.H, 1) + " / " + fmt(C.HMax / 1000, 1) + NB + "m<br>" + chip(fits, "ietilpst", "neietilpst")]);
@@ -3665,7 +3689,7 @@ var KP1Phys = (function () {
         bracket(yC, ym, "H/2"); bracket(ym, yB, "H/2");
         if (f > 0.01) {
           arrow(ctx, bx, ym, bx + dmax / 2 - 1, ym, TH.move, 1.8, 6);
-          text(ctx, "δ/2", bx + dmax / 2 + 6, ym - 1, { size: 12, weight: 600, color: TH.move });
+          text(ctx, "δ_{B}/2", bx + dmax / 2 + 6, ym - 1, { size: 12, weight: 600, color: TH.move });
           ctx.beginPath(); ctx.arc(bx + dmax / 2, ym, 3.5, 0, 7); ctx.fillStyle = TH.surface; ctx.fill(); ctx.lineWidth = 1.6; ctx.strokeStyle = TH.ink; ctx.stroke();
         }
       } else bracket(yC, yB, "H");
@@ -3737,9 +3761,9 @@ var KP1Phys = (function () {
       $("x7-v").innerHTML = (ok ? '<span class="st ok">der</span> ' : '<span class="st bad">neder</span> ') +
         (mode === "guided"
           ? "Vadītam galam <i>σ</i> = " + MPa(gd.sigma) + (ok ? " ≤ 80 MPa." : " &gt; 80 MPa — kāja par īsu; vajag <i>H</i> ≥ " + m2(R.HminL) + ".")
-          : "Brīvam galam <i>σ</i> = " + MPa(free.sigma) + " — 2 reizes mazāk, spēks 4 reizes mazāks. Bet īstais līkums galu notur, tāpēc rēķina vadītu konsoli.");
+          : "Brīvam galam <i>σ</i> = " + MPa(free.sigma) + " — 2 reizes mazāk, spēks 4 reizes mazāks. Tā nav izvēle projektā: metināts līkums un vadotne galu notur, tāpēc rēķina vadītu konsoli.");
       $("x7-k").innerHTML = "<b>Tā pati formula kā katalogā.</b> No <i>σ</i> = 3<i>EDδ</i>/<i>H</i>² = <i>σ</i><sub>allow</sub> iznāk " +
-        "<i>H</i> = <i>k</i>·√(<i>D</i>·<i>δ</i>) ar <i>k</i> = √(3<i>E</i>/<i>σ</i><sub>allow</sub>) = " + fmt(R.k, 1) +
+        "<i>H</i> = <i>k</i>·√(<i>D</i>·<i>δ</i><sub>B</sub>) ar <i>k</i> = √(3<i>E</i>/<i>σ</i><sub>allow</sub>) = " + fmt(R.k, 1) +
         ". Ražotāju katalogos tērauda caurulēm <i>k</i> ≈ 90. Šim piemēram: " + fmt(R.k, 1) + " · √(" + fmt(R.D, 1) + " · " + fmt(R.dL, 1) +
         ") = " + fmt(R.HminL, 0) + " mm.";
     }
@@ -3949,8 +3973,8 @@ var KP1Phys = (function () {
       var fL = function (Hv) { return 3 * C.E * R.D * R.dL / Math.pow(Hv * 1000, 2); };
       ch.curve(fL, TH.ink3, 1.8, [5, 4]);
       ch.curve(function (Hv) { return fL(Hv) / 2; }, TH.force, 2.4);
-      if (w >= 640) text(ctx, "L līkums (δ)", ch.X(2.65) + 4, ch.Y(fL(2.65)) - 10, { size: 11, color: TH.ink2 });
-      text(ctx, "U cilpa (δ/2)", ch.X(2.0) + 6, ch.Y(fL(2.0) / 2) - 10, { size: 11, weight: 600, color: TH.force });
+      if (w >= 640) text(ctx, "L līkums (δ_{B})", ch.X(2.65) + 4, ch.Y(fL(2.65)) - 10, { size: 11, color: TH.ink2 });
+      text(ctx, "U cilpa (δ_{B}/2)", ch.X(2.0) + 6, ch.Y(fL(2.0) / 2) - 10, { size: 11, weight: 600, color: TH.force });
       [[R.HminL / 1000, "H_{min,L}"], [R.HminU / 1000, "H_{min,U}"]].forEach(function (m, j) {
         if (m[0] > 6) return;
         ch.vline(m[0], TH.ok, 1, [3, 3]);
@@ -3975,8 +3999,8 @@ var KP1Phys = (function () {
       var gu = P.guided(R.EI, R.W, delta / 2, Hm);
       var fits = Hm <= C.HMax + 1e-6, ok = gu.sigma <= C.sigmaAllow * 1.0005;
       setRO($("x9-ro"), [
-        ["<i>δ</i> kopā", mm(delta)],
-        ["katrai kājai <i>δ</i>/2", mm(delta / 2)],
+        ["<i>δ</i><sub>B</sub> kopā", mm(delta)],
+        ["katrai kājai <i>δ</i><sub>B</sub>/2", mm(delta / 2)],
         ["<i>σ</i><sub>U</sub>", MPa(gu.sigma)],
         ["<i>F</i><sub>U</sub>", sig(gu.F, 3) + NB + "N"],
         ["izvēlētais <i>H</i>", m1(Hm)],
@@ -4108,11 +4132,11 @@ var KP1Phys = (function () {
       a: 2,
       e: "Visu caurules svaru <i>q</i>·<i>L</i><sub>1</sub> tāpat nes balsti — vienalga, cik to ir. Berze ir <i>μ</i> reizes šis svars. Mainās tikai pakāpienu skaits <i>N</i>(<i>x</i>) diagrammā." },
     { q: "Kāpēc U cilpas kāja var būt īsāka par L līkuma kāju?",
-      o: ["Cilpā ir divas kājas, katra uzņem tikai pusi kustības; <i>σ</i> ∝ <i>δ</i>/<i>H</i>², tāpēc <i>H</i> var būt √2 reizes mazāks.",
+      o: ["Cilpā ir divas kājas, katra uzņem tikai pusi kustības; <i>σ</i> ∝ <i>δ</i><sub>B</sub>/<i>H</i>², tāpēc <i>H</i> var būt √2 reizes mazāks.",
           "Cilpu taisa no stiprāka tērauda.",
           "Cilpā nav berzes, tāpēc kājai mazāk darba."],
       a: 0,
-      e: "Abas puses dod cilpai pa <i>δ</i>/2, un katra kāja ir vadīta konsole ar pusi kustības. No <i>σ</i> = 3<i>ED</i>(<i>δ</i>/2)/<i>H</i>² = <i>σ</i><sub>allow</sub> iznāk <i>H</i><sub>min,U</sub> = <i>H</i><sub>min,L</sub>/√2." },
+      e: "Abas puses dod cilpai pa <i>δ</i><sub>B</sub>/2, un katra kāja ir vadīta konsole ar pusi kustības. No <i>σ</i> = 3<i>ED</i>(<i>δ</i><sub>B</sub>/2)/<i>H</i>² = <i>σ</i><sub>allow</sub> iznāk <i>H</i><sub>min,U</sub> = <i>H</i><sub>min,L</sub>/√2." },
     { q: "Kas notiek, ja vienīgo fiksēto punktu ieliek taisnā posma vidū?",
       o: ["Kustība pazūd, jo FP to notur.",
           "Stūrī nonāk tikai puse kustības, bet otra puse aiziet uz A — iekārtu, kas nedrīkst kustēties.",
@@ -4167,6 +4191,8 @@ var KP1Phys = (function () {
         fb.classList.add("show");
         if (!(qi in answered)) { answered[qi] = v === it.a; if (v === it.a) right++; }
         var n = Object.keys(answered).length;
+        track("parbaude/sakta");
+        if (n === QUIZ.length) track("parbaude/pabeigta-" + right + "-no-" + n);
         $("quiz-score").textContent = "Pirmajā mēģinājumā pareizi: " + right + " no " + n + (n === QUIZ.length ? " — visi jautājumi atbildēti." : ".");
       });
     });
@@ -4299,7 +4325,7 @@ var KP1Phys = (function () {
       btn.setAttribute("aria-expanded", on ? "true" : "false");
       panel.setAttribute("aria-hidden", on ? "false" : "true");
       sysView.visible = on;
-      if (on) sysView.flush();
+      if (on) { sysView.flush(); track("sistema/atverta"); }
       if (on && focus) $("sys-close").focus();
       if (!on && focus) btn.focus();
       queueResize();
@@ -4371,6 +4397,46 @@ var KP1Phys = (function () {
   // height; Chrome's scroll anchoring keeps the target in view, Safari has
   // none, so jump again once the layout is final — unless the reader has
   // already started scrolling.
+  // ---- anonymous usage counts for the teacher ----
+  // Only the public copy loads a counter (scripts/publish_kp1_explainer.py adds the
+  // GoatCounter tag); offline and in the course app track() stays a no-op. Each event
+  // is sent at most once per page load: which sections were seen and which controls
+  // used, not what was typed.
+  if (location.hash) track("ienaca/" + location.hash.slice(1));
+  if (window.IntersectionObserver) {
+    // a section counts once it has held the middle of the screen for a few seconds,
+    // not when it merely scrolls past (or fits on screen before its figures have sized)
+    var dwell = {};
+    var seenObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        var id = en.target.id;
+        clearTimeout(dwell[id]);
+        if (en.isIntersecting) dwell[id] = setTimeout(function () { track("sadala/" + id); seenObs.unobserve(en.target); }, 3000);
+      });
+    }, { rootMargin: "-40% 0px -40% 0px" });
+    doc.querySelectorAll("section.sec[id], #caurule").forEach(function (el) { seenObs.observe(el); });
+  }
+  function onControl(e) {
+    var el = e.target;
+    if (!el || !el.id || /^q\d+-/.test(el.id)) return;          // quiz answers are counted above
+    var tag = el.tagName === "SELECT" || el.type === "radio" ? el.id + "=" + el.value : el.id;
+    track("vadiba/" + tag);
+  }
+  doc.addEventListener("input", onControl, true);
+  doc.addEventListener("change", onControl, true);
+  doc.addEventListener("click", function (e) {
+    var b = e.target && e.target.closest && e.target.closest("button.play");
+    if (b && b.id) track("animacija/" + b.id);
+  }, true);
+  var shownSec = 0;
+  setInterval(function () {
+    if (doc.visibilityState !== "visible") return;
+    shownSec += 15;
+    [[120, "2-min"], [600, "10-min"], [1200, "20-min"]].forEach(function (m) {
+      if (shownSec >= m[0]) track("laiks/" + m[1]);
+    });
+  }, 15000);
+
   var readerMoved = false;
   ["wheel", "touchstart", "keydown"].forEach(function (ev) {
     window.addEventListener(ev, function () { readerMoved = true; }, { once: true, passive: true });
